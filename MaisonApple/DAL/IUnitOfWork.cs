@@ -4,10 +4,15 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using Entities;
+
 namespace DAL
 {
     public interface IUnitOfWork
     {
+        IRepository<Product> RepoProduct { get; set; }
+        IRepository<Category> RepoCategory { get; set; }
+        IRepository<ProductImage> RepoProductImage { get; set; }
         /// <summary>
         /// Gets or creates a repository for a specific entity type.
         /// </summary>
