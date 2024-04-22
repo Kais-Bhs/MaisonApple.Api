@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240418204930_InitialMigration")]
+    [Migration("20240422225012_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace DAO.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("CurrentPrice")
                         .HasColumnType("int");

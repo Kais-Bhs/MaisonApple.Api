@@ -49,25 +49,29 @@ namespace MaisonApple.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<ActionResult<int>> Add(ProductImageDto dto, IFormFile file)
+        public async Task<ActionResult<int>> Add(IFormFile file, [FromForm] int productId)
         {
             try
             {
-                if (file == null || file.Length == 0)
+                if (file.Length > 0)
                 {
-                    return BadRequest("Aucun fichier n'a été téléchargé.");
+                    using var ms = new MemoryStream();
+                    file.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var dto = new ProductImageDto
+                    {
+                        ProductId = productId,
+                        ImageData = fileBytes
+                    };
+
+                    var result = await _manager.Add(dto);
+                    return CreatedAtAction(null, result);
                 }
-
-                // Convertir le fichier en tableau d'octets
-                using var ms = new MemoryStream();
-                await file.CopyToAsync(ms);
-                var imageData = ms.ToArray();
-
-                // Créer un objet ProductImageDto à partir des données du fichier
-              dto.ImageData = imageData;
-
-                var result = await _manager.Add(dto);
-                return CreatedAtAction(null, result);
+                else
+                {
+                    return BadRequest("Invalid file");
+                }
             }
             catch (Exception ex)
             {

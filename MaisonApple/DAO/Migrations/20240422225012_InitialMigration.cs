@@ -40,6 +40,7 @@ namespace DAO.Migrations
                     InitialPrice = table.Column<int>(type: "int", nullable: false),
                     CurrentPrice = table.Column<int>(type: "int", nullable: false),
                     IsUsed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Color = table.Column<string>(type: "longtext", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

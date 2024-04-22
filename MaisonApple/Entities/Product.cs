@@ -17,7 +17,8 @@ namespace Entities
         public int InitialPrice { get; set; }
         public int CurrentPrice { get; set; }
         public bool IsUsed { get; set; }
-        public List<ProductImage>? Images { get; set; }
+        public List<ProductImage> Images { get; set; }
+        public List<PoductColor> Color { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
     }

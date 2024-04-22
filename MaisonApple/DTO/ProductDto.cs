@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace DTO
         public int CurrentPrice { get; set; }
         public bool IsUsed { get; set; }
         public List<ProductImageDto>? Images { get; set; }
+        public List<PoductColor>? Color { get; set; }
         public int CategoryId { get; set; }
     }
 }

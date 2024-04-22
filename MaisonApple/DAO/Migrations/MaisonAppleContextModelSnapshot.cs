@@ -41,6 +41,9 @@ namespace DAO.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Color")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("CurrentPrice")
                         .HasColumnType("int");
 
