@@ -3,12 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BL.Interfaces;
 using DAL;
@@ -98,6 +92,19 @@ namespace BL.Managers
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
                 return _mapper.Map<ProductDto>(product);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task<IEnumerable<ProductDto>> GetProductsByCategoryId(int categoryId)
+        {
+            try
+            {
+                var products = await _unitOfWork.RepoProduct.GetProductsByCategoryId(categoryId);
+
+                return _mapper.Map<IEnumerable<ProductDto>>(products);
             }
             catch (Exception ex)
             {

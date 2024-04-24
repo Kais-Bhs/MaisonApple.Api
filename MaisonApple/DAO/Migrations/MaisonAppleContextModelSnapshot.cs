@@ -41,9 +41,6 @@ namespace DAO.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Color")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CurrentPrice")
                         .HasColumnType("int");
 
@@ -59,7 +56,7 @@ namespace DAO.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("QuantitéStock")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -67,6 +64,40 @@ namespace DAO.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Entities.ProductColor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductColors");
+                });
+
+            modelBuilder.Entity("Entities.ProductColorRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId", "ColorId")
+                        .IsUnique();
+
+                    b.ToTable("ProductColorRelations");
                 });
 
             modelBuilder.Entity("Entities.ProductImage", b =>
@@ -99,6 +130,25 @@ namespace DAO.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Entities.ProductColorRelation", b =>
+                {
+                    b.HasOne("Entities.Product", "Product")
+                        .WithMany("ProductColorRelations")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.ProductColor", "ProductColor")
+                        .WithMany("ProductColorRelations")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductColor");
+                });
+
             modelBuilder.Entity("Entities.ProductImage", b =>
                 {
                     b.HasOne("Entities.Product", "Product")
@@ -118,6 +168,13 @@ namespace DAO.Migrations
             modelBuilder.Entity("Entities.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("ProductColorRelations");
+                });
+
+            modelBuilder.Entity("Entities.ProductColor", b =>
+                {
+                    b.Navigation("ProductColorRelations");
                 });
 #pragma warning restore 612, 618
         }

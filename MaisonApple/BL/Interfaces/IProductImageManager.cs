@@ -3,11 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DTO;
 
 namespace BL.Interfaces
@@ -22,5 +17,6 @@ namespace BL.Interfaces
         Task<ProductImageDto> Get(int id);
 
         Task<ProductImageDto> Update(ProductImageDto productImageDto);
+        Task<IEnumerable<ProductImageDto>> GetProductImagesByProductId(int productId);
     }
 }

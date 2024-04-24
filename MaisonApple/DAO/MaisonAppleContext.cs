@@ -3,7 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System.Reflection.Metadata;
 using DAO.Configurations;
 using Entities;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +18,16 @@ namespace DAO
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ProductColorRelation> ProductColorRelations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new ProdcutEntityTypeConfiguration().Configure(modelBuilder.Entity<Product>());
+            new ProductEntityTypeConfiguration().Configure(modelBuilder.Entity<Product>());
             new CategoryEntityTypeConfiguration().Configure(modelBuilder.Entity<Category>());
             new ProductImageEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductImage>());
+            new ProductColorEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductColor>());
+            new ProductColorRelationEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductColorRelation>());
         }
     }
 }

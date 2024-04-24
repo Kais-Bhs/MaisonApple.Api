@@ -8,7 +8,6 @@ using BL.Managers;
 using BL.Mapper;
 using DAL;
 using DAO;
-using Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

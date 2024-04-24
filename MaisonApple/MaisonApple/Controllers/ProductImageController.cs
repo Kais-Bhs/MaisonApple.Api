@@ -6,7 +6,6 @@
 using BL.Interfaces;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
 namespace MaisonApple.Controllers
 {
@@ -100,6 +99,19 @@ namespace MaisonApple.Controllers
             {
                 await _manager.Update(dto);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpGet("GetProductImagesByProductId")]
+        public async Task<ActionResult<IEnumerable<ProductImageDto>>> GetProductImagesByProductId(int productId)
+        {
+            try
+            {
+                var result = await _manager.GetProductImagesByProductId(productId);
+                return Ok(result);
             }
             catch (Exception ex)
             {

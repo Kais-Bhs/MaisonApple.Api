@@ -4,18 +4,13 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAO.Configurations
 {
-    internal class ProdcutEntityTypeConfiguration : IEntityTypeConfiguration<Product>
+    internal class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -24,7 +19,7 @@ namespace DAO.Configurations
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name);
-            builder.Property(x => x.QuantitéStock);
+            builder.Property(x => x.StockQuantity);
             builder.Property(x => x.Description);
             builder.Property(x => x.InitialPrice);
             builder.Property(x => x.CurrentPrice);
