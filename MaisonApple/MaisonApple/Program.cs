@@ -9,6 +9,8 @@ using BL.Mapper;
 using DAL;
 using DAO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +19,34 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 builder.Services.AddDbContext<MaisonAppleContext>(options =>
-        options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"),
+                     b => b.MigrationsAssembly("MaisonApple")));
+
+builder.Services.AddAuthorization();
+
+//builder.Services.AddIdentityApiEndpoints<IdentityUser>(opt =>
+//{
+//    opt.Password.RequiredLength = 8;
+//    opt.User.RequireUniqueEmail = true;
+//    opt.Password.RequireNonAlphanumeric = false;
+//    opt.SignIn.RequireConfirmedEmail = true;
+//})
+//    .AddDefaultUI()
+//    .AddEntityFrameworkStores<MaisonAppleContext>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddTransient<IProductManager, ProductManager>();
@@ -51,11 +77,32 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
+app.UseAuthorization();
+//app.MapIdentityApi<IdentityUser>(); 
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
+
+//app.Use(async (context, next) => { Console.WriteLine(string.Join("\n", app.Urls)); await next.Invoke(); });
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapRazorPages();  // Assurez-vous d'inclure vos autres mappings ici comme endpoints.MapControllers();
+//    app.Use(async (context, next) =>
+//    {
+//        var endpointDataSource = app.Services.GetRequiredService<Microsoft.AspNetCore.Routing.EndpointDataSource>();
+//        foreach (var endpoint in endpointDataSource.Endpoints)
+//        {
+//            var routeEndpoint = endpoint as RouteEndpoint;
+//            if (routeEndpoint != null)
+//            {
+//                Console.WriteLine($"{routeEndpoint.RoutePattern.RawText} {routeEndpoint.Metadata.GetMetadata<Microsoft.AspNetCore.Http.HttpMethodMetadata>()?.HttpMethods.FirstOrDefault()}");
+//            }
+//        }
+//        await next();
+//    });
+//});
 
 app.Run();

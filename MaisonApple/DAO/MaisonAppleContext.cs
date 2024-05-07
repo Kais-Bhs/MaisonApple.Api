@@ -5,11 +5,13 @@
 // ---------------------------------------------------------------
 using DAO.Configurations;
 using Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAO
 {
-    public class MaisonAppleContext : DbContext
+    public class MaisonAppleContext : IdentityDbContext
     {
         public MaisonAppleContext(DbContextOptions<MaisonAppleContext> options)
            : base(options)
@@ -23,6 +25,10 @@ namespace DAO
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+      .HasKey(l => new { l.LoginProvider, l.ProviderKey });
+
             new ProductEntityTypeConfiguration().Configure(modelBuilder.Entity<Product>());
             new CategoryEntityTypeConfiguration().Configure(modelBuilder.Entity<Category>());
             new ProductImageEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductImage>());
