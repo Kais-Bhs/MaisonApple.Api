@@ -1,27 +1,20 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Identity.UI.Services;
+﻿namespace EmailService
+{
+    public class EmailSender : IEmailSender
+    {
+        private readonly IEmailService _emailService;
 
-//namespace EmailService
-//{
-//    public class EmailSender : 
-//    {
-//        private readonly IEmailService _emailService;
+        public EmailSender(IEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            EmailMessageModel emailMessage = new(email,
+            subject,
+            htmlMessage);
 
-//        public EmailSender(IEmailService emailService)
-//        {
-//            _emailService = emailService;
-//        }
-//        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
-//        {
-//            EmailMessageModel emailMessage = new(email,
-//            subject,
-//            htmlMessage);
-
-//            await _emailService.Send(emailMessage);
-//        }
-//    }
-//}
+            await _emailService.Send(emailMessage);
+        }
+    }
+}

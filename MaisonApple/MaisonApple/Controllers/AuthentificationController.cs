@@ -3,59 +3,55 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using System.IdentityModel.Tokens.Jwt;
+using BL.Interfaces;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaisonApple.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AuthentificationController : ControllerBase
     {
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IPasswordHasher<IdentityUser> _passwordHasher;
+        private readonly IAuthentificationManager _manager;
         //private readonly ISecuri _tokenService;
-        public AuthentificationController(IUserStore<IdentityUser> userStore, IPasswordHasher<IdentityUser> passwordHasher)
+        public AuthentificationController(IAuthentificationManager manager)
         {
-            _userStore = userStore;
-            _passwordHasher = passwordHasher;
+            _manager = manager;
         }
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(string email, string password)
+        public async Task<ActionResult<string>> Register(RegisterUserDto userDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
-            
-            var user = new IdentityUser
-            {
-                UserName = email,
-                Email = email
-            };
-            var psw = _passwordHasher.HashPassword(user, password);
-            var result = await _userStore.CreateAsync(user, CancellationToken.None);
+                var result = await _manager.Register(userDto);
 
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors);
+                return CreatedAtAction(null, result);
             }
-
-            return Ok();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Login(string email, string password)
-        //{
-        //    var user = await _userStore.FindByEmailAsync(email);
+        [HttpPost("Login")]
+        public async Task<ActionResult<bool>> Login(LoginUserDto userDto)
+        {
+            try
+            {
+                var result = await _manager.Login(userDto);
 
-        //    if (user == null || !_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password).Equals(PasswordVerificationResult.Success))
-        //    {
-        //        return Unauthorized();
-        //    }
-
-        //    var token = await _tokenService.GenerateAccessTokenAsync(user);
-
-        //    return Ok(new { token });
-        //}
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(result),
+                    expired = result.ValidTo
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
 
     }
 }

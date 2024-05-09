@@ -76,6 +76,17 @@ namespace DAO.DAO
                 throw new Exception(ex.Message, ex);
             }
         }
+        public virtual async Task<T> Get(string id)
+        {
+            try
+            {
+                return await _dbSet.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
         /// <summary>
         /// Récupère de manière asynchrone toutes les entités de la source de données.
         /// </summary>

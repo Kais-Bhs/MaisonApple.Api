@@ -6,6 +6,7 @@
 
 using DAL.CustomRepositories;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace DAL
 {
@@ -14,6 +15,7 @@ namespace DAL
         IProductRepository RepoProduct { get; set; }
         IRepository<Category> RepoCategory { get; set; }
         IProductImageRepository RepoProductImage { get; set; }
+        IRepository<IdentityUser> RepoUser { get; set; }
         /// <summary>
         /// Gets or creates a repository for a specific entity type.
         /// </summary>

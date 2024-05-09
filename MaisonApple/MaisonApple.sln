@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{86E01331-44D4-4F02-B656-6D4614C7E51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{66D89BD4-EF2C-46D0-9FAC-2E4DAA560BBC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{86E01331-44D4-4F02-B656-6D4614C7E51A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86E01331-44D4-4F02-B656-6D4614C7E51A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86E01331-44D4-4F02-B656-6D4614C7E51A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66D89BD4-EF2C-46D0-9FAC-2E4DAA560BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66D89BD4-EF2C-46D0-9FAC-2E4DAA560BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66D89BD4-EF2C-46D0-9FAC-2E4DAA560BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66D89BD4-EF2C-46D0-9FAC-2E4DAA560BBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

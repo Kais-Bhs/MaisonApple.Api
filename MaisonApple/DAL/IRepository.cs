@@ -18,7 +18,7 @@ namespace DAL
         /// </summary>
         /// <param name="predicate">The predicate to filter entities.</param>
         /// <returns>A queryable collection of entities.</returns>
-        Task<IQueryable<T>> Query(Expression<Func<T, bool>> predicate);
+        Task<IQueryable<T>> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
 
         /// <summary>
         /// Retrieves a queryable collection of all entities.
@@ -50,7 +50,7 @@ namespace DAL
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         Task Update(T entity);
-
+        Task<T> Get(string id);
         /// <summary>
         /// Deletes an entity from the repository asynchronously.
         /// </summary>

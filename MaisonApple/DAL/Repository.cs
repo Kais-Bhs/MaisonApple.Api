@@ -25,11 +25,11 @@ namespace DAL
         /// </summary>
         /// <param name="predicate">Le prédicat pour filtrer les entités.</param>
         /// <returns>Une requête IQueryable d'entités basée sur le prédicat.</returns>
-        public virtual async Task<IQueryable<T>> Query(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IQueryable<T>> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
             try
             {
-                return await _DAOEntities.Query(predicate);
+                return await _DAOEntities.Query(predicate, includes);
             }
             catch (Exception ex)
             {
@@ -57,6 +57,17 @@ namespace DAL
         /// <param name="id">L'identifiant de l'entité à récupérer.</param>
         /// <returns>L'entité récupérée de manière asynchrone.</returns>
         public virtual async Task<T> Get(int? id)
+        {
+            try
+            {
+                return await _DAOEntities.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public virtual async Task<T> Get(string id)
         {
             try
             {

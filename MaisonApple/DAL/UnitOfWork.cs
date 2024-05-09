@@ -7,6 +7,7 @@ using DAL.CustomRepositories;
 using DAO;
 using DAO.DAO;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DAL
@@ -18,7 +19,7 @@ namespace DAL
         public IProductRepository RepoProduct { get; set; }
         public IRepository<Category> RepoCategory { get; set; }
         public IProductImageRepository RepoProductImage { get; set; }
-
+        public IRepository<IdentityUser> RepoUser { get; set; }
         public UnitOfWork(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -28,6 +29,7 @@ namespace DAL
             RepoProduct = new ProductRepository(new DAOEntities<Product>(dbContext));
             RepoCategory = new Repository<Category>(new DAOEntities<Category>(dbContext));
             RepoProductImage = new ProductImageRepository(new DAOEntities<ProductImage>(dbContext));
+            RepoUser = new Repository<IdentityUser>(new DAOEntities<IdentityUser>(dbContext));
 
         }
 

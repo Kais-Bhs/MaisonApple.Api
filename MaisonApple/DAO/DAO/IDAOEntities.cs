@@ -32,7 +32,7 @@ namespace DAO.DAO
         /// <param name="id">The ID of the entity to retrieve.</param>
         /// <returns>The entity with the provided ID, or null if not found.</returns>
         Task<T> Get(int? id);
-
+        Task<T> Get(string id);
         /// <summary>
         /// Retrieves a collection of all entities asynchronously.
         /// </summary>

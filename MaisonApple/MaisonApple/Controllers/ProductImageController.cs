@@ -52,8 +52,8 @@ namespace MaisonApple.Controllers
         {
             try
             {
-                    var result = await _manager.Add(productImageDto);
-                    return CreatedAtAction(null, result);
+                var result = await _manager.Add(productImageDto);
+                return CreatedAtAction(null, result);
             }
             catch (Exception ex)
             {
