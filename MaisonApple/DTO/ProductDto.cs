@@ -12,7 +12,7 @@ namespace DTO
         public string Name { get; set; }
         public string Description { get; set; }
         public int StockQuantity { get; set; }
-        public int Prix { get; set; }
+        public int InitialPrice { get; set; }
         public int CurrentPrice { get; set; }
         public bool IsUsed { get; set; }
         public List<ProductImageDto>? Images { get; set; }
