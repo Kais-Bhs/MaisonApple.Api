@@ -15,6 +15,8 @@ namespace DAL
         IProductRepository RepoProduct { get; set; }
         IRepository<Category> RepoCategory { get; set; }
         IProductImageRepository RepoProductImage { get; set; }
+        IRepository<Payment> RepoPayment { get; set; }
+        IRepository<Order> RepoOrder { get; set; }
         IRepository<IdentityUser> RepoUser { get; set; }
         /// <summary>
         /// Gets or creates a repository for a specific entity type.

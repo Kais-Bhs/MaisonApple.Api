@@ -21,5 +21,6 @@ namespace Entities
         public ICollection<ProductColorRelation> ProductColorRelations { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

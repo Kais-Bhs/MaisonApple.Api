@@ -10,6 +10,7 @@ using BL.Managers;
 using BL.Mapper;
 using DAL;
 using DAO;
+using Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +60,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader());
 });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
           .AddEntityFrameworkStores<MaisonAppleContext>();
 string secretKey = builder.Configuration["JWTConfiguration:SecritKey"];
 builder.Services.AddAuthentication(options =>

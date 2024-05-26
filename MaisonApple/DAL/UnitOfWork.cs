@@ -20,6 +20,8 @@ namespace DAL
         public IRepository<Category> RepoCategory { get; set; }
         public IProductImageRepository RepoProductImage { get; set; }
         public IRepository<IdentityUser> RepoUser { get; set; }
+        public IRepository<Payment> RepoPayment { get; set; }
+        public IRepository<Order> RepoOrder { get; set; }
         public UnitOfWork(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -30,7 +32,8 @@ namespace DAL
             RepoCategory = new Repository<Category>(new DAOEntities<Category>(dbContext));
             RepoProductImage = new ProductImageRepository(new DAOEntities<ProductImage>(dbContext));
             RepoUser = new Repository<IdentityUser>(new DAOEntities<IdentityUser>(dbContext));
-
+            RepoPayment = new Repository<Payment>(new DAOEntities<Payment>(dbContext));
+            RepoOrder = new Repository<Order>(new DAOEntities<Order>(dbContext));
         }
 
         /// <summary>

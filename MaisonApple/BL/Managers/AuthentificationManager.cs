@@ -31,7 +31,7 @@ namespace BL.Managers
             try
             {
                 var user = _mapper.Map<IdentityUser>(userDto);
-                //create account in db
+                
                 IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
                 IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
 
