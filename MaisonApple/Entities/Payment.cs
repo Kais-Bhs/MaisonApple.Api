@@ -13,7 +13,7 @@ namespace Entities
         public DateTime Date { get; set; }
         public string Method { get; set; }
         public Double Amount { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
         public List<Order> Orders { get; set; }
     }

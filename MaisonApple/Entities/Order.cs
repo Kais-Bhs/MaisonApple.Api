@@ -15,7 +15,7 @@ namespace Entities
 
         public Payment Payment { get; set; }
 
-        public int Product_Id { get; set; }
+        public int ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

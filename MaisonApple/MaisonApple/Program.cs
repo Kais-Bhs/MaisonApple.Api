@@ -27,8 +27,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<MaisonAppleContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"),
-                     b => b.MigrationsAssembly("MaisonApple")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 

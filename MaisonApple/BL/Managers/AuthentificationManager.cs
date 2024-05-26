@@ -9,6 +9,7 @@ using System.Text;
 using AutoMapper;
 using BL.Interfaces;
 using DTO;
+using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,10 +17,10 @@ namespace BL.Managers
 {
     public class AuthentificationManager : IAuthentificationManager
     {
-        private readonly UserManager<IdentityUser> _userStore;
+        private readonly UserManager<User> _userStore;
         public readonly JWTConfiguration _JWTConfiguration;
         private readonly IMapper _mapper;
-        public AuthentificationManager(UserManager<IdentityUser> userStore, JWTConfiguration JWTConfiguration,IMapper mapper)
+        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration,IMapper mapper)
         {
             _userStore = userStore;
             _JWTConfiguration = JWTConfiguration;
@@ -30,7 +31,7 @@ namespace BL.Managers
         {
             try
             {
-                var user = _mapper.Map<IdentityUser>(userDto);
+                var user = _mapper.Map<User>(userDto);
                 
                 IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
                 IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
@@ -50,7 +51,7 @@ namespace BL.Managers
             {
                 var jwtSecurityTokenResult = new JwtSecurityToken();
 
-                IdentityUser? userFromDB = await _userStore.FindByNameAsync(userDto.UserName);
+                User? userFromDB = await _userStore.FindByNameAsync(userDto.UserName);
 
                 if (userFromDB != null)
                 {

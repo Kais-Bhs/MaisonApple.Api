@@ -22,7 +22,7 @@ namespace DAO.Configurations
 
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.Product_Id);
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }

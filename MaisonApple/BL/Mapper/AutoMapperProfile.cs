@@ -23,8 +23,8 @@ namespace BL.Mapper
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();
 
-            CreateMap<RegisterUserDto, IdentityUser>();
-            CreateMap<IdentityUser, RegisterUserDto>();
+            CreateMap<RegisterUserDto, User>();
+            CreateMap<User, RegisterUserDto>();
 
             CreateMap<PaymentDto, Payment>();
             CreateMap<Payment, PaymentDto>();
