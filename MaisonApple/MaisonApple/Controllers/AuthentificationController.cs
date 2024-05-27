@@ -35,7 +35,7 @@ namespace MaisonApple.Controllers
             }
         }
         [HttpPost("Login")]
-        public async Task<ActionResult<JwtSecurityTokenHandler>> Login(LoginUserDto userDto)
+        public async Task<ActionResult<JwtSecurityToken>> Login(LoginUserDto userDto)
         {
             try
             {
