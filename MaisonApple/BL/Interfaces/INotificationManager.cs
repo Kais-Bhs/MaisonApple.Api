@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DTO;
+﻿using DTO;
 
 namespace BL.Interfaces
 {
@@ -17,5 +12,6 @@ namespace BL.Interfaces
         Task<NotificationDto> Get(int id);
 
         Task<NotificationDto> Update(NotificationDto NotificationDto);
+        Task<IEnumerable<NotificationDto>> GetNotificationByUser(string userId);
     }
 }

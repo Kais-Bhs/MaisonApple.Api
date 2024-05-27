@@ -35,7 +35,7 @@ namespace DAL
             RepoUser = new Repository<IdentityUser>(new DAOEntities<IdentityUser>(dbContext));
             RepoCommand = new Repository<Command>(new DAOEntities<Command>(dbContext));
             RepoOrder = new Repository<Order>(new DAOEntities<Order>(dbContext));
-            RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));  
+            RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));
         }
 
         /// <summary>

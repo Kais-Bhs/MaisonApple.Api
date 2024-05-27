@@ -20,7 +20,7 @@ namespace BL.Managers
         private readonly UserManager<User> _userStore;
         public readonly JWTConfiguration _JWTConfiguration;
         private readonly IMapper _mapper;
-        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration,IMapper mapper)
+        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration, IMapper mapper)
         {
             _userStore = userStore;
             _JWTConfiguration = JWTConfiguration;
@@ -32,7 +32,7 @@ namespace BL.Managers
             try
             {
                 var user = _mapper.Map<User>(userDto);
-                
+
                 IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
                 IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
 

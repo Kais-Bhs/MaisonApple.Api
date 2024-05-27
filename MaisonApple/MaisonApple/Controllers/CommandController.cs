@@ -11,10 +11,10 @@ namespace MaisonApple.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public partial class PaymentController : ControllerBase
+    public partial class CommandController : ControllerBase
     {
         private readonly ICommandManager _manager;
-        public PaymentController(ICommandManager manager)
+        public CommandController(ICommandManager manager)
         {
             _manager = manager;
         }
@@ -82,6 +82,45 @@ namespace MaisonApple.Controllers
             {
                 await _manager.Update(dto);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpPut("AcceptCommmand")]
+        public async Task<IActionResult> AcceptCommmand(int commandId)
+        {
+            try
+            {
+                await _manager.AcceptCommmand(commandId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpPut("RejectCommmand")]
+        public async Task<IActionResult> RejectCommmand(int commandId)
+        {
+            try
+            {
+                await _manager.RejectCommmand(commandId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpGet("GetCommandsByUser")]
+        public async Task<ActionResult<IEnumerable<CommandDto>>> GetCommandsByUser(string userId)
+        {
+            try
+            {
+                var result = await _manager.GetCommandsByUser(userId);
+                return Ok(result);
             }
             catch (Exception ex)
             {

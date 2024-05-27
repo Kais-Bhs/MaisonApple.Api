@@ -83,5 +83,18 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpGet("GetNotificationByUser")]
+        public async Task<ActionResult<IEnumerable<NotificationDto>>> GetNotificationByUser(string userId)
+        {
+            try
+            {
+                var result = await _manager.GetNotificationByUser(userId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

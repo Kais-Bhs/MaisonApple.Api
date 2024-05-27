@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BL.Interfaces;
 using DAL;
 using DTO;
@@ -92,6 +87,19 @@ namespace BL.Managers
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
                 return _mapper.Map<NotificationDto>(Notification);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task<IEnumerable<NotificationDto>> GetNotificationByUser(string userId)
+        {
+            try
+            {
+                var notifications = await _unitOfWork.RepoNotification.Query(n => n.UserId == userId);
+
+                return _mapper.Map<IEnumerable<NotificationDto>>(notifications);
             }
             catch (Exception ex)
             {

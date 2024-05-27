@@ -4,12 +4,6 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DTO
 {
     public class CommandDto
@@ -19,7 +13,7 @@ namespace DTO
         public string Method { get; set; }
         public Double Amount { get; set; }
         public Guid UserId { get; set; }
-        public CommandStatusDto CommandStatus { get; set; }
+        public CommandStatusDto CommandStatus { get; set; } = CommandStatusDto.Loading;
         public List<OrderDto> Orders { get; set; }
     }
 }

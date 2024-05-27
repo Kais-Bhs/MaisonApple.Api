@@ -3,13 +3,7 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DTO;
-using Entities;
 
 namespace BL.Interfaces
 {
@@ -24,5 +18,9 @@ namespace BL.Interfaces
         Task<CommandDto> Get(int id);
 
         Task<CommandDto> Update(CommandDto PaymentDto);
+        Task AcceptCommmand(int commandId);
+
+        Task RejectCommmand(int commandId);
+        Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId);
     }
 }

@@ -6,7 +6,6 @@
 using AutoMapper;
 using DTO;
 using Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace BL.Mapper
 {

@@ -3,11 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BL.Interfaces;
 using DAL;
@@ -97,6 +92,61 @@ namespace BL.Managers
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
                 return _mapper.Map<CommandDto>(Payment);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public async Task AcceptCommmand(int commandId)
+        {
+            try
+            {
+                var commandDto = await Get(commandId);
+                if (commandDto.CommandStatus == CommandStatusDto.Loading)
+                {
+                    commandDto.CommandStatus = CommandStatusDto.Accepted;
+                    var command = _mapper.Map<Command>(commandDto);
+                    await _unitOfWork.BeginTransactionAsync();
+                    await _unitOfWork.RepoCommand.Update(command);
+                    await _unitOfWork.CommitTransactionAsync();
+                    await _unitOfWork.SaveAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public async Task RejectCommmand(int commandId)
+        {
+            try
+            {
+                var commandDto = await Get(commandId);
+                if (commandDto.CommandStatus == CommandStatusDto.Loading)
+                {
+                    commandDto.CommandStatus = CommandStatusDto.Rejected;
+                    var command = _mapper.Map<Command>(commandDto);
+                    await _unitOfWork.BeginTransactionAsync();
+                    await _unitOfWork.RepoCommand.Update(command);
+                    await _unitOfWork.CommitTransactionAsync();
+                    await _unitOfWork.SaveAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId)
+        {
+            try
+            {
+                var commands = await _unitOfWork.RepoCommand.Query(n => n.UserId == userId);
+
+                return _mapper.Map<IEnumerable<CommandDto>>(commands);
             }
             catch (Exception ex)
             {

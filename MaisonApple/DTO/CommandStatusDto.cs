@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO
+﻿namespace DTO
 {
     public enum CommandStatusDto
     {
-        Completed,
+        Accepted,
         Rejected,
-        NOtYet
+        Loading
     }
 
 }
