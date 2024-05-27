@@ -12,7 +12,7 @@ namespace DTO
         public DateTime Date { get; set; }
         public string Method { get; set; }
         public Double Amount { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public CommandStatusDto CommandStatus { get; set; } = CommandStatusDto.Loading;
         public List<OrderDto> Orders { get; set; }
     }

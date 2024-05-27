@@ -40,6 +40,10 @@ builder.Services.AddTransient<IProductManager, ProductManager>();
 builder.Services.AddTransient<ICategoryManager, CategoryManager>();
 builder.Services.AddTransient<IProductImageManager, ProductImageManager>();
 builder.Services.AddTransient<IAuthentificationManager, AuthentificationManager>();
+builder.Services.AddTransient<ICommandManager, CommandManager>();
+builder.Services.AddTransient<INotificationManager, NotificationManager>();
+
+
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.Configure<JWTConfiguration>(builder.Configuration.GetSection("JWTConfiguration"));
 builder.Services.AddTransient(provider =>

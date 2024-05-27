@@ -20,13 +20,26 @@ namespace BL.Managers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<int> Add(CommandDto PaymentDto)
+        public async Task<int> Add(CommandDto commandDto)
         {
             try
             {
+                foreach(var orderDto in commandDto.Orders)
+                {
+                    var product = await _unitOfWork.RepoProduct.Get(orderDto.ProductId);
+                    product.StockQuantity -= orderDto.Quantity;
+
+                    await _unitOfWork.RepoProduct.Update(product);
+
+                    if(product.StockQuantity < 3)
+                    {
+                        var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId,Title = $"Stock du produit {product.Name} est en basse" };
+                        await _unitOfWork.RepoNotification.Add(notification);
+                    }
+                }
                 await _unitOfWork.BeginTransactionAsync();
 
-                var payment = _mapper.Map<Command>(PaymentDto);
+                var payment = _mapper.Map<Command>(commandDto);
                 await _unitOfWork.RepoCommand.Add(payment);
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();

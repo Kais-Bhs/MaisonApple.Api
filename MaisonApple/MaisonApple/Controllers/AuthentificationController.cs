@@ -35,17 +35,13 @@ namespace MaisonApple.Controllers
             }
         }
         [HttpPost("Login")]
-        public async Task<ActionResult<bool>> Login(LoginUserDto userDto)
+        public async Task<ActionResult<JwtSecurityTokenHandler>> Login(LoginUserDto userDto)
         {
             try
             {
                 var result = await _manager.Login(userDto);
 
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(result),
-                    expired = result.ValidTo
-                });
+                return Ok(result);
             }
             catch (Exception ex)
             {

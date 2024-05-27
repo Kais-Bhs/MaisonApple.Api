@@ -55,14 +55,11 @@ namespace BL.Managers
 
                 if (userFromDB != null)
                 {
-                    //found in db
-                    //check pass
 
                     bool found = await _userStore.CheckPasswordAsync(userFromDB, userDto.Password);
 
                     if (found)
                     {
-                        //create token
 
                         List<Claim> myclaim = new List<Claim>();
                         myclaim.Add(new Claim(ClaimTypes.Name, userFromDB.UserName));
