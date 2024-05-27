@@ -22,6 +22,9 @@ namespace DAO
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductColorRelation> ProductColorRelations { get; set; }
+        public DbSet<Command> Commands { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +37,10 @@ namespace DAO
             new ProductImageEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductImage>());
             new ProductColorEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductColor>());
             new ProductColorRelationEntityTypeConfiguration().Configure(modelBuilder.Entity<ProductColorRelation>());
+
+            new CommandEntityTypeConfiguration().Configure(modelBuilder.Entity<Command>());
+            new OrderEntityTypeConfiguration().Configure(modelBuilder.Entity<Order>());
+            new NotificationEntityTypeConfguration().Configure(modelBuilder.Entity<Notification>());
         }
     }
 }

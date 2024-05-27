@@ -3,23 +3,20 @@ using System;
 using DAO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MaisonApple.Migrations
+namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240506212902_AddIdentity")]
-    partial class AddIdentity
+    partial class MaisonAppleContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Entities.Category", b =>
@@ -34,6 +31,86 @@ namespace MaisonApple.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Entities.Command", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double");
+
+                    b.Property<int>("CommandStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Method")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Commands");
+                });
+
+            modelBuilder.Entity("Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsReaded")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.Product", b =>
@@ -184,6 +261,11 @@ namespace MaisonApple.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -234,6 +316,10 @@ namespace MaisonApple.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -313,6 +399,50 @@ namespace MaisonApple.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("Entities.Command", b =>
+                {
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("payments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Notification", b =>
+                {
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Order", b =>
+                {
+                    b.HasOne("Entities.Command", "Payment")
+                        .WithMany("Orders")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Payment");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Entities.Product", b =>
@@ -412,9 +542,16 @@ namespace MaisonApple.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Entities.Command", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("Entities.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("ProductColorRelations");
                 });
@@ -422,6 +559,13 @@ namespace MaisonApple.Migrations
             modelBuilder.Entity("Entities.ProductColor", b =>
                 {
                     b.Navigation("ProductColorRelations");
+                });
+
+            modelBuilder.Entity("Entities.User", b =>
+                {
+                    b.Navigation("Notifications");
+
+                    b.Navigation("payments");
                 });
 #pragma warning restore 612, 618
         }
