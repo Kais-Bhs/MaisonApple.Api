@@ -89,11 +89,11 @@ namespace MaisonApple.Controllers
             }
         }
         [HttpPut("AcceptCommmand")]
-        public async Task<IActionResult> AcceptCommmand(int commandId)
+        public async Task<IActionResult> AcceptCommmand(CommandDto commandDto)
         {
             try
             {
-                await _manager.AcceptCommmand(commandId);
+                await _manager.AcceptCommmand(commandDto);
                 return NoContent();
             }
             catch (Exception ex)

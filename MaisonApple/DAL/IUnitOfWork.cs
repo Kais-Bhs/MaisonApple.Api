@@ -18,7 +18,8 @@ namespace DAL
         IRepository<Command> RepoCommand { get; set; }
         IRepository<Order> RepoOrder { get; set; }
         IRepository<Notification> RepoNotification { get; set; }
-        IRepository<IdentityUser> RepoUser { get; set; }
+        IRepository<User> RepoUser { get; set; }
+        IRepository<IdentityRole> RepoRole { get; set; }
         /// <summary>
         /// Gets or creates a repository for a specific entity type.
         /// </summary>

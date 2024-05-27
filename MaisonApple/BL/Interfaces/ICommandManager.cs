@@ -18,7 +18,7 @@ namespace BL.Interfaces
         Task<CommandDto> Get(int id);
 
         Task<CommandDto> Update(CommandDto PaymentDto);
-        Task AcceptCommmand(int commandId);
+        Task AcceptCommmand(CommandDto commandDto);
 
         Task RejectCommmand(int commandId);
         Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId);

@@ -8,6 +8,7 @@ using BL.Interfaces;
 using DAL;
 using DTO;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace BL.Managers
 {
@@ -15,10 +16,12 @@ namespace BL.Managers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly UserManager<User> _userStore;
+        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper,UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userStore = userManager;
         }
         public async Task<int> Add(CommandDto commandDto)
         {
@@ -35,24 +38,12 @@ namespace BL.Managers
                 {
                    var order = _mapper.Map<Order>(orderDto);
                     order.PaymentId = payment.Id;
-
-                    var product = await _unitOfWork.RepoProduct.Get(orderDto.ProductId);
-                    product.StockQuantity -= orderDto.Quantity;
+                  
                     await _unitOfWork.BeginTransactionAsync();
-
-                    await _unitOfWork.RepoProduct.Update(product);
                     await _unitOfWork.RepoOrder.Add(order);
-
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
-                    if (product.StockQuantity < 3)
-                    {
-                        var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId,Title = $"Stock du produit {product.Name} est en basse" };
-                        await _unitOfWork.BeginTransactionAsync();
-                        await _unitOfWork.RepoNotification.Add(notification);
-                        await _unitOfWork.CommitTransactionAsync();
-                        await _unitOfWork.SaveAsync();
-                    }
+               
                 }
         
                 return payment.Id;
@@ -83,8 +74,17 @@ namespace BL.Managers
         {
             try
             {
-                var Payments = await _unitOfWork.RepoCommand.Get();
-                return _mapper.Map<IEnumerable<CommandDto>>(Payments);
+                var commands = await _unitOfWork.RepoCommand.Get();
+
+                var commandDtos =_mapper.Map<IEnumerable<CommandDto>>(commands);
+                foreach (var commandDto in commandDtos)
+                {
+                    var orders = (await _unitOfWork.RepoOrder.Query(o => o.PaymentId == commandDto.Id)).ToList();
+                    commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
+                }
+               
+
+                return commandDtos;
             }
             catch (Exception ex)
             {
@@ -124,15 +124,36 @@ namespace BL.Managers
             }
         }
 
-        public async Task AcceptCommmand(int commandId)
+        public async Task AcceptCommmand(CommandDto commandDto)
         {
             try
             {
-                var commandDto = await Get(commandId);
-
-                if (commandDto.CommandStatus == CommandStatusDto.Loading)
+                foreach (var orderDto in commandDto.Orders)
                 {
-                    commandDto.CommandStatus = CommandStatusDto.Accepted;
+                    var product = await _unitOfWork.RepoProduct.Get(orderDto.ProductId);
+                    product.StockQuantity -= orderDto.Quantity;
+                    await _unitOfWork.BeginTransactionAsync();
+                    await _unitOfWork.RepoProduct.Update(product);
+                    await _unitOfWork.CommitTransactionAsync();
+                    await _unitOfWork.SaveAsync();
+                    if (product.StockQuantity < 3)
+                    {
+                        var adminNotification = new Notification { Date = DateTime.Now, Title = $"Stock du produit {product.Name} est en basse" };
+
+                        var users = await _userStore.GetUsersInRoleAsync("ADMIN");
+
+                        foreach (var user in users)
+                        {
+                            adminNotification.UserId = user.Id;
+                            await _unitOfWork.BeginTransactionAsync();
+                            await _unitOfWork.RepoNotification.Add(adminNotification);
+                            await _unitOfWork.CommitTransactionAsync();
+                            await _unitOfWork.SaveAsync();
+                        }
+                    
+                    }
+                }
+                commandDto.CommandStatus = CommandStatusDto.Accepted;
                     var command = _mapper.Map<Command>(commandDto);
                     var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Votre Commande de reference {commandDto.Reference} est bien acceptée" };
                     await _unitOfWork.BeginTransactionAsync();
@@ -141,7 +162,7 @@ namespace BL.Managers
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
                   
-                }
+                
             }
             catch (Exception ex)
             {

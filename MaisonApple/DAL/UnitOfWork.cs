@@ -9,6 +9,7 @@ using DAO.DAO;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 
 namespace DAL
 {
@@ -19,7 +20,8 @@ namespace DAL
         public IProductRepository RepoProduct { get; set; }
         public IRepository<Category> RepoCategory { get; set; }
         public IProductImageRepository RepoProductImage { get; set; }
-        public IRepository<IdentityUser> RepoUser { get; set; }
+        public IRepository<User> RepoUser { get; set; }
+        public IRepository<IdentityRole> RepoRole { get; set; }
         public IRepository<Command> RepoCommand { get; set; }
         public IRepository<Order> RepoOrder { get; set; }
         public IRepository<Notification> RepoNotification { get; set; }
@@ -32,7 +34,8 @@ namespace DAL
             RepoProduct = new ProductRepository(new DAOEntities<Product>(dbContext));
             RepoCategory = new Repository<Category>(new DAOEntities<Category>(dbContext));
             RepoProductImage = new ProductImageRepository(new DAOEntities<ProductImage>(dbContext));
-            RepoUser = new Repository<IdentityUser>(new DAOEntities<IdentityUser>(dbContext));
+            RepoUser = new Repository<User>(new DAOEntities<User>(dbContext));
+            RepoRole = new Repository<IdentityRole>(new  DAOEntities<IdentityRole>(dbContext));
             RepoCommand = new Repository<Command>(new DAOEntities<Command>(dbContext));
             RepoOrder = new Repository<Order>(new DAOEntities<Order>(dbContext));
             RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));
