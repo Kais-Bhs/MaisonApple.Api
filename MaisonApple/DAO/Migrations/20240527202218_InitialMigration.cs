@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -202,6 +203,7 @@ namespace DAO.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Reference = table.Column<string>(type: "longtext", nullable: true),
                     Method = table.Column<string>(type: "longtext", nullable: true),
                     Amount = table.Column<double>(type: "double", nullable: false),
                     CommandStatus = table.Column<int>(type: "int", nullable: false),

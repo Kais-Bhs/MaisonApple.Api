@@ -51,6 +51,9 @@ namespace DAO.Migrations
                     b.Property<string>("Method")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Reference")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 

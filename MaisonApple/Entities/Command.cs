@@ -7,6 +7,7 @@ namespace Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public string Reference { get; set; }
         public string Method { get; set; }
         public Double Amount { get; set; }
         public CommandStatus CommandStatus { get; set; }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240527175042_InitialMigration")]
+    [Migration("20240527202218_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -52,6 +52,9 @@ namespace DAO.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Method")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Reference")
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
