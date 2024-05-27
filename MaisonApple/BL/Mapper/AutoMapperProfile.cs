@@ -26,8 +26,10 @@ namespace BL.Mapper
             CreateMap<RegisterUserDto, User>();
             CreateMap<User, RegisterUserDto>();
 
-            CreateMap<PaymentDto, Payment>();
-            CreateMap<Payment, PaymentDto>();
+            CreateMap<CommandDto, Command>();
+            CreateMap<Command, CommandDto>();
+            CreateMap<NotificationDto, Notification>();
+            CreateMap<Notification, NotificationDto>();
         }
     }
 }

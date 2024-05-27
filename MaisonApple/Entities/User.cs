@@ -9,7 +9,7 @@ namespace Entities
 {
     public class User : IdentityUser
     {
-        public List<Payment>? payments { get; set; }
-
+        public List<Command> payments { get; set; }
+        public List<Notification> Notifications { get; set; }
     }
 }

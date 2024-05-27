@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAO.Configurations
 {
-    internal class PaymentEntityTypeConfiguration : IEntityTypeConfiguration<Payment>
+    internal class CommandEntityTypeConfiguration : IEntityTypeConfiguration<Command>
     {
-        public void Configure(EntityTypeBuilder<Payment> builder)
+        public void Configure(EntityTypeBuilder<Command> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
@@ -20,6 +20,7 @@ namespace DAO.Configurations
             builder.Property(x => x.Date);
             builder.Property(x => x.Method);
             builder.Property(x => x.Amount);
+            builder.Property(x => x.CommandStatus);
 
             builder.HasMany(x => x.Orders)
                 .WithOne(x => x.Payment)

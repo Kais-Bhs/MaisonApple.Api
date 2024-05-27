@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Payment
+    public class Command
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Method { get; set; }
         public Double Amount { get; set; }
+        public CommandStatus CommandStatus { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public List<Order> Orders { get; set; }

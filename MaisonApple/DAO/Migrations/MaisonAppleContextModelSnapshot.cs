@@ -33,6 +33,62 @@ namespace DAO.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Entities.Command", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double");
+
+                    b.Property<int>("CommandStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Method")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Commands");
+                });
+
+            modelBuilder.Entity("Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsReaded")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -54,32 +110,7 @@ namespace DAO.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Entities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("double");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Method")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Payment");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.Product", b =>
@@ -377,9 +408,27 @@ namespace DAO.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("Entities.Command", b =>
+                {
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("payments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Notification", b =>
+                {
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.HasOne("Entities.Payment", "Payment")
+                    b.HasOne("Entities.Command", "Payment")
                         .WithMany("Orders")
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,15 +443,6 @@ namespace DAO.Migrations
                     b.Navigation("Payment");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Entities.Payment", b =>
-                {
-                    b.HasOne("Entities.User", "User")
-                        .WithMany("payments")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entities.Product", b =>
@@ -502,7 +542,7 @@ namespace DAO.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Entities.Payment", b =>
+            modelBuilder.Entity("Entities.Command", b =>
                 {
                     b.Navigation("Orders");
                 });
@@ -523,6 +563,8 @@ namespace DAO.Migrations
 
             modelBuilder.Entity("Entities.User", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("payments");
                 });
 #pragma warning restore 612, 618

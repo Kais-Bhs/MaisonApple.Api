@@ -1,9 +1,4 @@
-﻿// ---------------------------------------------------------------
-// Copyright (c). All rights reserved.
-// Licensed under the MIT License.
-// See License.txt in the project root for license information.
-// ---------------------------------------------------------------
-using BL.Interfaces;
+﻿using BL.Interfaces;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +6,16 @@ namespace MaisonApple.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public partial class PaymentController : ControllerBase
+    public partial class NotificationController : ControllerBase
     {
-        private readonly ICommandManager _manager;
-        public PaymentController(ICommandManager manager)
+        private readonly INotificationManager _manager;
+        public NotificationController(INotificationManager manager)
         {
             _manager = manager;
         }
 
         [HttpGet("Get")]
-        public async Task<ActionResult<IEnumerable<CommandDto>>> Get()
+        public async Task<ActionResult<IEnumerable<NotificationDto>>> Get()
         {
             try
             {
@@ -34,7 +29,7 @@ namespace MaisonApple.Controllers
         }
 
         [HttpGet("Get/{id}")]
-        public async Task<ActionResult<CommandDto>> Get(int id)
+        public async Task<ActionResult<NotificationDto>> Get(int id)
         {
             try
             {
@@ -48,7 +43,7 @@ namespace MaisonApple.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<ActionResult<int>> Add(CommandDto dto)
+        public async Task<ActionResult<int>> Add(NotificationDto dto)
         {
             try
             {
@@ -76,7 +71,7 @@ namespace MaisonApple.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(CommandDto dto)
+        public async Task<IActionResult> Update(NotificationDto dto)
         {
             try
             {
