@@ -175,8 +175,7 @@ namespace BL.Managers
             try
             {
                 var commandDto = await Get(commandId);
-                if (commandDto.CommandStatus == CommandStatusDto.Loading)
-                {
+
                     commandDto.CommandStatus = CommandStatusDto.Rejected;
                     var command = _mapper.Map<Command>(commandDto);
                     var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" };
@@ -185,7 +184,7 @@ namespace BL.Managers
                     await _unitOfWork.RepoNotification.Add(notification);
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
-                }
+                
             }
             catch (Exception ex)
             {
