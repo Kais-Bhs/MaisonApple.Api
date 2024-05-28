@@ -45,27 +45,22 @@ namespace BL.Managers
         }
 
 
-        public async Task<JwtSecurityToken> Login(LoginUserDto userDto)
+        public async Task<string> Login(LoginUserDto userDto)
         {
             try
             {
-                var jwtSecurityTokenResult = new JwtSecurityToken();
-
                 User? userFromDB = await _userStore.FindByNameAsync(userDto.UserName);
 
                 if (userFromDB != null)
                 {
-
                     bool found = await _userStore.CheckPasswordAsync(userFromDB, userDto.Password);
 
                     if (found)
                     {
-
                         List<Claim> myclaim = new List<Claim>();
                         myclaim.Add(new Claim(ClaimTypes.Name, userFromDB.UserName));
                         myclaim.Add(new Claim(ClaimTypes.NameIdentifier, userFromDB.Id));
                         myclaim.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); //jti ==> Token id
-
 
                         var roles = await _userStore.GetRolesAsync(userFromDB);
                         foreach (var role in roles)
@@ -73,48 +68,37 @@ namespace BL.Managers
                             myclaim.Add(new Claim(ClaimTypes.Role, role));
                         }
 
-
                         var signKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTConfiguration.SecritKey)); //"ssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+                        var signingCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
 
-                        SigningCredentials signingCredentials =
-                            new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
+                        var tokenDescriptor = new SecurityTokenDescriptor
+                        {
+                            Subject = new ClaimsIdentity(myclaim),
+                            Expires = DateTime.Now.AddHours(1),
+                            SigningCredentials = signingCredentials,
+                            Issuer = _JWTConfiguration.ValidIss,
+                            Audience = _JWTConfiguration.ValidAud
+                        };
 
-
-                        JwtSecurityToken myToken = new JwtSecurityToken(
-                            issuer: _JWTConfiguration.ValidIss,
-                            audience: _JWTConfiguration.ValidAud,
-                            expires: DateTime.Now.AddHours(1),
-                            claims: myclaim,
-                            signingCredentials: signingCredentials
-
-                            );
-
-                        jwtSecurityTokenResult = myToken;
-
+                        var tokenHandler = new JwtSecurityTokenHandler();
+                        var token = tokenHandler.CreateToken(tokenDescriptor);
+                        return tokenHandler.WriteToken(token);
                     }
                     else
                     {
                         throw new Exception("Incorrect Mot De Passe");
                     }
-
-
-
                 }
                 else
                 {
                     throw new Exception("Incorrect UserName");
                 }
-
-                return jwtSecurityTokenResult;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
             }
-
-            //return null not Found or AppUser if Found 
-
-
         }
+
     }
 }
