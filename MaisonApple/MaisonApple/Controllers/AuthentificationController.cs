@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using BL.Interfaces;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MaisonApple.Controllers
 {
@@ -34,20 +35,48 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+
         [HttpPost("Login")]
-        public async Task<ActionResult<JwtSecurityToken>> Login(LoginUserDto userDto)
+        public async Task<ActionResult> Login(LoginUserDto userDto)
         {
             try
             {
-                var result = await _manager.Login(userDto);
+                var token = await _manager.Login(userDto);
 
-                return Ok(result);
+                if (string.IsNullOrEmpty(token)) // or check any other condition that indicates a failed login
+                {
+                    return Unauthorized("Invalid username or password");
+                }
+
+                return Ok(new { token });
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                // Log the exception here if needed
+                // _logger.LogError(ex, ex.Message);
+
+                return StatusCode(500, $"An error occurred while processing your request: \n{ex.Message}");
             }
         }
 
+
     }
+
+    public class CustomToken
+    {
+        public string? Username { get; set; }
+        public string? Role { get; set; }
+
+        // Constructor
+        public CustomToken(JwtSecurityToken jwtToken)
+        {
+            // Extract the claims
+            var claims = jwtToken.Claims;
+
+            // Map the claims to the properties
+            Username = claims.FirstOrDefault(x => x.Type == "username")?.Value;
+            Role = claims.FirstOrDefault(x => x.Type == "role")?.Value;
+        }
+    }
+
 }

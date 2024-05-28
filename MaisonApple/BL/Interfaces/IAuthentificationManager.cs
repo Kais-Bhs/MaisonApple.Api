@@ -11,6 +11,6 @@ namespace BL.Interfaces
     public interface IAuthentificationManager
     {
         Task<string> Register(RegisterUserDto userDto);
-        Task<JwtSecurityToken> Login(LoginUserDto userDto);
+        Task<string> Login(LoginUserDto userDto);
     }
 }
