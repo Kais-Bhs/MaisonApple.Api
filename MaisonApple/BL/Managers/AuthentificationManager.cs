@@ -20,11 +20,13 @@ namespace BL.Managers
         private readonly UserManager<User> _userStore;
         public readonly JWTConfiguration _JWTConfiguration;
         private readonly IMapper _mapper;
-        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration, IMapper mapper)
+        private readonly IMailService _mailService;
+        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration, IMapper mapper, IMailService mailService)
         {
             _userStore = userStore;
             _JWTConfiguration = JWTConfiguration;
             _mapper = mapper;
+            _mailService = mailService;
         }
 
         public async Task<string> Register(RegisterUserDto userDto)
@@ -34,7 +36,14 @@ namespace BL.Managers
                 var user = _mapper.Map<User>(userDto);
 
                 IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
-                IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
+                if (result.Succeeded)
+                {
+                    string verificationLink = $"https://localhost:7028/api/Authentification/VerifyEmail?userId={user.Id}";
+
+                    await SendVerificationEmail(user.Email, verificationLink);
+
+                    IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
+                }
 
                 return user.Id;
             }
@@ -43,7 +52,25 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+        public async Task VerifyEmail(string userId)
+        {
+            try
+            {
+                if (userId != null)
+                {
+                    var user = await _userStore.FindByIdAsync(userId);
 
+                        user.EmailConfirmed = true;
+                        await _userStore.UpdateAsync(user);
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
 
         public async Task<string> Login(LoginUserDto userDto)
         {
@@ -99,6 +126,20 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+        private async Task SendVerificationEmail(string email, string verificationLink)
+        {
+            string subject = "Confirmez votre adresse e-mail pour profiter pleinement de MaisonApple";
 
+            string body = $"Bonjour,\r\n\r\n" +
+                $"Merci de vous être inscrit sur MaisonApple, la boutique en ligne dédiée aux produits Apple. " +
+                $"Pour finaliser votre inscription et profiter pleinement de tous nos services, nous avons besoin de vérifier votre adresse e-mail.\r\n\r\n" +
+                $"Cliquez sur le bouton ci-dessous pour confirmer votre adresse e-mail :\r\n\r\n[Vérifier mon adresse e-mail] {verificationLink}\r\n\r\n" +
+                $"En tant que client vérifié, vous pourrez :\r\n\r\nSuivre vos commandes en temps réel\r\nBénéficier de nos offres promotionnelles exclusives\r\n" +
+                $"Accéder à notre service après-vente en ligne\r\nSi vous ne parvenez pas à cliquer sur le bouton, copiez et collez le lien suivant dans votre navigateur : {verificationLink}\r\n\r\n" +
+                $"Si vous n'avez pas créé de compte sur MaisonApple, veuillez ignorer ce message.\r\n\r\nMerci de votre confiance et à bientôt sur MaisonApple.\r\n\r\n" +
+                $"L'équipe MaisonApple";
+
+            await _mailService.SendEmail(email, subject, body,null,null);
+        }
     }
 }

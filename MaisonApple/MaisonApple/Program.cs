@@ -14,6 +14,7 @@ using Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -43,6 +44,15 @@ builder.Services.AddTransient<IAuthentificationManager, AuthentificationManager>
 builder.Services.AddTransient<ICommandManager, CommandManager>();
 builder.Services.AddTransient<INotificationManager, NotificationManager>();
 
+builder.Services.AddTransient<IMailService, MailService>(provider =>
+{
+    var smtpHost = builder.Configuration["MailService:SmtpHost"];
+    var smtpPort = builder.Configuration.GetValue<int>("MailService:SmtpPort");
+    var smtpUsername = builder.Configuration["MailService:SmtpUsername"];
+    var smtpPassword = builder.Configuration["MailService:SmtpPassword"];
+    var smtpEnableSsl = builder.Configuration.GetValue<bool>("MailService:SmtpEnableSsl");
+    return new MailService(smtpHost, smtpPort, smtpUsername, smtpPassword, smtpEnableSsl);
+});
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.Configure<JWTConfiguration>(builder.Configuration.GetSection("JWTConfiguration"));

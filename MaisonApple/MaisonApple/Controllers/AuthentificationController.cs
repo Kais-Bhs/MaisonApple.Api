@@ -59,24 +59,20 @@ namespace MaisonApple.Controllers
             }
         }
 
-
-    }
-
-    public class CustomToken
-    {
-        public string? Username { get; set; }
-        public string? Role { get; set; }
-
-        // Constructor
-        public CustomToken(JwtSecurityToken jwtToken)
+        [HttpGet("VerifyEmail")]
+        public async Task<IActionResult> VerifyEmail(string userId)
         {
-            // Extract the claims
-            var claims = jwtToken.Claims;
+            try
+            {
+                 await _manager.VerifyEmail(userId);
 
-            // Map the claims to the properties
-            Username = claims.FirstOrDefault(x => x.Type == "username")?.Value;
-            Role = claims.FirstOrDefault(x => x.Type == "role")?.Value;
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, $"An error occurred while processing your request: \n{ex.Message}");
+            }
         }
     }
-
 }

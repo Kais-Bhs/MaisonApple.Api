@@ -12,5 +12,6 @@ namespace BL.Interfaces
     {
         Task<string> Register(RegisterUserDto userDto);
         Task<string> Login(LoginUserDto userDto);
+        Task VerifyEmail(string userId);
     }
 }

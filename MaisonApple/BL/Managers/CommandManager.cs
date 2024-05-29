@@ -17,11 +17,13 @@ namespace BL.Managers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userStore;
-        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper,UserManager<User> userManager)
+        private readonly IMailService _mailService;
+        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper,UserManager<User> userManager, IMailService mailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userStore = userManager;
+            _mailService = mailService;
         }
         public async Task<int> Add(CommandDto commandDto)
         {
@@ -79,6 +81,8 @@ namespace BL.Managers
                 var commandDtos =_mapper.Map<IEnumerable<CommandDto>>(commands);
                 foreach (var commandDto in commandDtos)
                 {
+                    var user = await _userStore.FindByIdAsync(commandDto.UserId);
+                    commandDto.User = _mapper.Map <RegisterUserDto> (user);
                     var orders = (await _unitOfWork.RepoOrder.Query(o => o.PaymentId == commandDto.Id)).ToList();
                     commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
                 }
@@ -136,6 +140,7 @@ namespace BL.Managers
                     await _unitOfWork.RepoProduct.Update(product);
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
+
                     if (product.StockQuantity < 3)
                     {
                         var adminNotification = new Notification { Date = DateTime.Now, Title = $"Stock du produit {product.Name} est en basse" };
@@ -161,8 +166,8 @@ namespace BL.Managers
                     await _unitOfWork.RepoNotification.Add(notification);
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
-                  
-                
+
+                await SendAcceptCommandMail(commandDto);
             }
             catch (Exception ex)
             {
@@ -203,6 +208,28 @@ namespace BL.Managers
             {
                 throw new Exception(ex.Message, ex);
             }
+        }
+        private async Task SendAcceptCommandMail(CommandDto commandDto)
+        {
+            string subject = $"Votre Commande de referenc {commandDto.Reference} a ete bien accepté";
+
+            var produits = string.Empty;
+            foreach(var order in commandDto.Orders)
+            {
+                produits = produits + "" + $"{order.Quantity} items du produit {order.ProductId}";
+            }
+            string body = $"Bonjour,\r\n\r\n" +
+                $"Nous sommes ravis de vous annoncer que votre commande de reference {commandDto.Reference} a ete bien acceptée.\r\n\r\n" +
+                $"Deatils de la commande : \r\n\r\n" +
+                $"Date :{commandDto.Date} \r\n\r\n" +
+                $"Amount :{commandDto.Amount} \r\n\r\n" +
+                $"Liste des produits commandées : {produits}\r\n\r\n" +
+                $"Merci pour votre confiance.\r\n\r\n" +
+                $"Equipe Maison D'apple,\n" +
+                $"Cordialement";
+
+
+            await _mailService.SendEmail(commandDto.User.Email, subject, body, null, null);
         }
     }
 }
