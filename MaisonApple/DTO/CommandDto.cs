@@ -17,5 +17,7 @@ namespace DTO
         public RegisterUserDto? User { get; set; }
         public CommandStatusDto CommandStatus { get; set; } = CommandStatusDto.Loading;
         public List<OrderDto> Orders { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
     }
 }
