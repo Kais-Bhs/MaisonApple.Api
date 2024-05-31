@@ -40,6 +40,10 @@ namespace DAO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<double>("Amount")
                         .HasColumnType("double");
 
@@ -50,6 +54,10 @@ namespace DAO.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Method")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("longtext");
 

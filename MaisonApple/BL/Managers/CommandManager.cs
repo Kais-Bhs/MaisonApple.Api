@@ -83,7 +83,7 @@ namespace BL.Managers
                 {
                     var user = await _userStore.FindByIdAsync(commandDto.UserId);
                     commandDto.User = _mapper.Map <RegisterUserDto> (user);
-                    var orders = (await _unitOfWork.RepoOrder.Query(o => o.PaymentId == commandDto.Id)).ToList();
+                    var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
                     commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
                 }
                

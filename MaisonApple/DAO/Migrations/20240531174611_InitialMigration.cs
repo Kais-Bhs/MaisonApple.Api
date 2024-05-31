@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace DAO.Migrations
 {
     /// <inheritdoc />
-    public partial class newMigration2 : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,7 +207,9 @@ namespace DAO.Migrations
                     Method = table.Column<string>(type: "longtext", nullable: false),
                     Amount = table.Column<double>(type: "double", nullable: false),
                     CommandStatus = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Phone = table.Column<string>(type: "longtext", nullable: false),
+                    Address = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {

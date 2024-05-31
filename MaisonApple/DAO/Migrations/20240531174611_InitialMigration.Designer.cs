@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240530210459_newMigration2")]
-    partial class newMigration2
+    [Migration("20240531174611_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,10 @@ namespace DAO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<double>("Amount")
                         .HasColumnType("double");
 
@@ -53,6 +57,10 @@ namespace DAO.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Method")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("longtext");
 

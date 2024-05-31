@@ -16,6 +16,8 @@ namespace DAO.Configurations
             builder.Property(x => x.Method);
             builder.Property(x => x.Amount);
             builder.Property(x => x.CommandStatus);
+            builder.Property(x => x.Address);
+            builder.Property(x => x.Phone);
 
             builder.HasMany(x => x.Orders)
                 .WithOne(x => x.Payment)

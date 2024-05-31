@@ -23,7 +23,7 @@ namespace DAL
         public IRepository<User> RepoUser { get; set; }
         public IRepository<IdentityRole> RepoRole { get; set; }
         public IRepository<Command> RepoCommand { get; set; }
-        public IRepository<Order> RepoOrder { get; set; }
+        public IOrderRepository RepoOrder { get; set; }
         public IRepository<Notification> RepoNotification { get; set; }
         public UnitOfWork(IServiceProvider serviceProvider)
         {
@@ -37,7 +37,7 @@ namespace DAL
             RepoUser = new Repository<User>(new DAOEntities<User>(dbContext));
             RepoRole = new Repository<IdentityRole>(new  DAOEntities<IdentityRole>(dbContext));
             RepoCommand = new Repository<Command>(new DAOEntities<Command>(dbContext));
-            RepoOrder = new Repository<Order>(new DAOEntities<Order>(dbContext));
+            RepoOrder = new OrderRepository(new DAOEntities<Order>(dbContext));
             RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));
         }
 
