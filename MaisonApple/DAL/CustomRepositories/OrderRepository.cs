@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using DAO.DAO;
 using Entities;
 
@@ -105,7 +100,7 @@ namespace DAL.CustomRepositories
         {
             try
             {
-                var Orders = (await _dAOOrder.Query(us => us.CommandId == commandId, us => us.Product ));
+                var Orders = (await _dAOOrder.Query(us => us.CommandId == commandId, us => us.Product));
 
                 return Orders;
             }

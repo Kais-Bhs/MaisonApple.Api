@@ -28,7 +28,46 @@ namespace BL.Managers
             _mapper = mapper;
             _mailService = mailService;
         }
+        public async Task<RegisterUserDto> Get(string userId)
+        {
+            try
+            {
+                var user = await _userStore.FindByIdAsync(userId);
 
+                return _mapper.Map<RegisterUserDto>(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task Update(UpdateUserDto updateUserDto)
+        {
+            try
+            {
+                var user = await _userStore.FindByIdAsync(updateUserDto.Id);
+
+                if (_userStore.CheckPasswordAsync(user, updateUserDto.OldPassword).Result)
+                {
+                    var passwordValidator = new PasswordValidator<User>();
+                    var result = await passwordValidator.ValidateAsync(_userStore, user, updateUserDto.NewPassword);
+
+                    var hashedPassword = _userStore.PasswordHasher.HashPassword(user, updateUserDto.NewPassword);
+
+                    user.PasswordHash = hashedPassword;
+                    user.UserName = updateUserDto.UserName;
+                    user.PhoneNumber = updateUserDto.PhoneNumber;
+                    user.Email = updateUserDto.Email;
+
+                    await _userStore.UpdateAsync(user);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
         public async Task<string> Register(RegisterUserDto userDto)
         {
             try
@@ -60,9 +99,9 @@ namespace BL.Managers
                 {
                     var user = await _userStore.FindByIdAsync(userId);
 
-                        user.EmailConfirmed = true;
-                        await _userStore.UpdateAsync(user);
-                    
+                    user.EmailConfirmed = true;
+                    await _userStore.UpdateAsync(user);
+
 
                 }
             }
@@ -139,7 +178,7 @@ namespace BL.Managers
                 $"Si vous n'avez pas créé de compte sur MaisonApple, veuillez ignorer ce message.\r\n\r\nMerci de votre confiance et à bientôt sur MaisonApple.\r\n\r\n" +
                 $"L'équipe MaisonApple";
 
-            await _mailService.SendEmail(email, subject, body,null,null);
+            await _mailService.SendEmail(email, subject, body, null, null);
         }
     }
 }

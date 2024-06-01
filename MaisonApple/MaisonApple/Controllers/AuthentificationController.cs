@@ -3,11 +3,9 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System.IdentityModel.Tokens.Jwt;
 using BL.Interfaces;
 using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace MaisonApple.Controllers
 {
@@ -64,7 +62,7 @@ namespace MaisonApple.Controllers
         {
             try
             {
-                 await _manager.VerifyEmail(userId);
+                await _manager.VerifyEmail(userId);
 
                 return Ok();
             }
@@ -72,6 +70,32 @@ namespace MaisonApple.Controllers
             {
 
                 return StatusCode(500, $"An error occurred while processing your request: \n{ex.Message}");
+            }
+        }
+        [HttpGet("Get/{id}")]
+        public async Task<ActionResult<RegisterUserDto>> Get(string id)
+        {
+            try
+            {
+                var result = await _manager.Get(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(UpdateUserDto dto)
+        {
+            try
+            {
+                await _manager.Update(dto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
             }
         }
     }

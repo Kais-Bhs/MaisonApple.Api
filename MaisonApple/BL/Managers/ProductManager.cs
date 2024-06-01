@@ -3,7 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System.Drawing;
 using AutoMapper;
 using BL.Interfaces;
 using DAL;
@@ -134,20 +133,20 @@ namespace BL.Managers
                 }
 
                 var productColorRelations = new List<ProductColorRelation>();
-                    foreach (var color in productDto.Color)
+                foreach (var color in productDto.Color)
+                {
+                    if (!oldProdcut.Color.Contains(color))
                     {
-                        if(!oldProdcut.Color.Contains(color))
-                        {
                         var productColorRelation = new ProductColorRelation { ProductId = product.Id, ColorId = color.Id };
                         productColorRelations.Add(productColorRelation);
-                        }
-
                     }
+
+                }
                 await _unitOfWork.BeginTransactionAsync();
                 await _unitOfWork.RepoProductColorRelation.Add(productColorRelations);
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
-               
+
 
                 return _mapper.Map<ProductDto>(product);
             }

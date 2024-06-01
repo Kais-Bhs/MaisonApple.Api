@@ -18,7 +18,7 @@ namespace BL.Managers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userStore;
         private readonly IMailService _mailService;
-        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper,UserManager<User> userManager, IMailService mailService)
+        public CommandManager(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, IMailService mailService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -38,14 +38,14 @@ namespace BL.Managers
 
                 foreach (var orderDto in commandDto.Orders)
                 {
-                   var order = _mapper.Map<Order>(orderDto);
+                    var order = _mapper.Map<Order>(orderDto);
                     order.CommandId = command.Id;
-                  
+
                     await _unitOfWork.BeginTransactionAsync();
                     await _unitOfWork.RepoOrder.Add(order);
                     await _unitOfWork.CommitTransactionAsync();
                     await _unitOfWork.SaveAsync();
-               
+
                 }
                 await SendCommandSendedMail(commandDto);
                 return command.Id;
@@ -78,15 +78,15 @@ namespace BL.Managers
             {
                 var commands = await _unitOfWork.RepoCommand.Get();
 
-                var commandDtos =_mapper.Map<IEnumerable<CommandDto>>(commands);
+                var commandDtos = _mapper.Map<IEnumerable<CommandDto>>(commands);
                 foreach (var commandDto in commandDtos)
                 {
                     var user = await _userStore.FindByIdAsync(commandDto.UserId);
-                    commandDto.User = _mapper.Map <RegisterUserDto> (user);
+                    commandDto.User = _mapper.Map<RegisterUserDto>(user);
                     var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
                     commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
                 }
-               
+
 
                 return commandDtos;
             }
@@ -138,7 +138,7 @@ namespace BL.Managers
 
                     var product = await _unitOfWork.RepoProduct.Get(orderDto.ProductId);
                     product.StockQuantity -= orderDto.Quantity;
-                    if(product.StockQuantity >= 0)
+                    if (product.StockQuantity >= 0)
                     {
                         await _unitOfWork.BeginTransactionAsync();
                         await _unitOfWork.RepoProduct.Update(product);
@@ -161,12 +161,14 @@ namespace BL.Managers
                             }
 
                         }
-                    }else
+                    }
+                    else
                     {
                         testStock = false;
                     }
 
-                } if(testStock)
+                }
+                if (testStock)
                 {
                     commandDto.CommandStatus = CommandStatusDto.Accepted;
                     var command = _mapper.Map<Command>(commandDto);
@@ -193,15 +195,15 @@ namespace BL.Managers
             {
                 var commandDto = await Get(commandId);
 
-                    commandDto.CommandStatus = CommandStatusDto.Rejected;
-                    var command = _mapper.Map<Command>(commandDto);
-                    var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Commande Rejetée" , Description = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" };
-                    await _unitOfWork.BeginTransactionAsync();
-                    await _unitOfWork.RepoCommand.Update(command);
-                    await _unitOfWork.RepoNotification.Add(notification);
-                    await _unitOfWork.CommitTransactionAsync();
-                    await _unitOfWork.SaveAsync();
-                
+                commandDto.CommandStatus = CommandStatusDto.Rejected;
+                var command = _mapper.Map<Command>(commandDto);
+                var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Commande Rejetée", Description = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" };
+                await _unitOfWork.BeginTransactionAsync();
+                await _unitOfWork.RepoCommand.Update(command);
+                await _unitOfWork.RepoNotification.Add(notification);
+                await _unitOfWork.CommitTransactionAsync();
+                await _unitOfWork.SaveAsync();
+
             }
             catch (Exception ex)
             {
@@ -226,7 +228,7 @@ namespace BL.Managers
             string subject = $"Votre Commande de referenc {commandDto.Reference} a ete bien accepté";
 
             var produits = string.Empty;
-            foreach(var order in commandDto.Orders)
+            foreach (var order in commandDto.Orders)
             {
                 produits = produits + "" + $"{order.Quantity} items du produit {order.ProductId}";
             }

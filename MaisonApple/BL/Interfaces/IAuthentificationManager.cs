@@ -3,7 +3,6 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
-using System.IdentityModel.Tokens.Jwt;
 using DTO;
 
 namespace BL.Interfaces
@@ -13,5 +12,7 @@ namespace BL.Interfaces
         Task<string> Register(RegisterUserDto userDto);
         Task<string> Login(LoginUserDto userDto);
         Task VerifyEmail(string userId);
+        Task<RegisterUserDto> Get(string userId);
+        Task Update(UpdateUserDto updateUserDto);
     }
 }
