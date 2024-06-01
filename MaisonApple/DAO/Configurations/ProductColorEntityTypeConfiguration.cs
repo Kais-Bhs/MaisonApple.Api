@@ -13,6 +13,7 @@ namespace DAO.Configurations
                 .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Name);
+            builder.Property(x => x.ColorCode);
 
         }
     }

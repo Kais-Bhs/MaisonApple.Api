@@ -17,10 +17,10 @@ namespace Entities
         public int InitialPrice { get; set; }
         public int CurrentPrice { get; set; }
         public bool IsUsed { get; set; }
-        public ICollection<ProductImage> Images { get; set; }
-        public ICollection<ProductColorRelation> ProductColorRelations { get; set; }
+        public ICollection<ProductImage>? Images { get; set; }
+        public ICollection<ProductColorRelation>? ProductColorRelations { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
-        public List<Order> Orders { get; set; }
+        public Category? Category { get; set; }
+        public List<Order>? Orders { get; set; }
     }
 }

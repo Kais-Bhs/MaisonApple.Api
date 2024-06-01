@@ -50,17 +50,17 @@ namespace DAO
 
             // Seed data for Products table
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "iPhone 11",Description ="",StockQuantity =10, CategoryId = 1, InitialPrice = 1200 },
-                new Product { Id = 2, Name = "iPhone 12", Description = "", StockQuantity = 10, CategoryId = 1, InitialPrice = 1500 },
-                new Product { Id = 3, Name = "iPhone 13", Description = "", StockQuantity = 10, CategoryId = 1, InitialPrice = 1800 },
-                new Product { Id = 4, Name = "iPhone 13 Pro Max", Description = "", StockQuantity = 10, CategoryId = 1, InitialPrice = 2200 },
-                new Product { Id = 5, Name = "iPhone 15", Description = "", StockQuantity = 10, CategoryId = 1, InitialPrice = 2800 },
-                new Product { Id = 6, Name = "Mac Pro 2022", Description = "", StockQuantity = 10, CategoryId = 2, InitialPrice = 3000 },
-                new Product { Id = 7, Name = "Mac Pro 2021", Description = "", StockQuantity = 10, CategoryId = 2, InitialPrice = 2500 },
-                new Product { Id = 8, Name = "Mac Pro 2020", Description = "", StockQuantity = 10, CategoryId = 2, InitialPrice = 2000 },
-                new Product { Id = 9, Name = "Apple Watch Series 7", Description = "", StockQuantity = 10, CategoryId = 3, InitialPrice = 400 },
-                new Product { Id = 10, Name = "Apple Watch SE", Description = "", StockQuantity = 10, CategoryId = 3, InitialPrice = 300 },
-                new Product { Id = 11, Name = "Apple Watch Series 3", Description = "", StockQuantity = 10, CategoryId = 3, InitialPrice = 200 }
+                new Product { Id = 1, Name = "iPhone 11",Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity =10, CategoryId = 1, InitialPrice = 1200 },
+                new Product { Id = 2, Name = "iPhone 12", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 1, InitialPrice = 1500 },
+                new Product { Id = 3, Name = "iPhone 13", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 1, InitialPrice = 1800 },
+                new Product { Id = 4, Name = "iPhone 13 Pro Max", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 1, InitialPrice = 2200 },
+                new Product { Id = 5, Name = "iPhone 15", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 1, InitialPrice = 2800 },
+                new Product { Id = 6, Name = "Mac Pro 2022", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 2, InitialPrice = 3000 },
+                new Product { Id = 7, Name = "Mac Pro 2021", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 2, InitialPrice = 2500 },
+                new Product { Id = 8, Name = "Mac Pro 2020", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 2, InitialPrice = 2000 },
+                new Product { Id = 9, Name = "Apple Watch Series 7", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 3, InitialPrice = 400 },
+                new Product { Id = 10, Name = "Apple Watch SE", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 3, InitialPrice = 300 },
+                new Product { Id = 11, Name = "Apple Watch Series 3", Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68", StockQuantity = 10, CategoryId = 3, InitialPrice = 200 }
             );
 
             // Seed data for IdentityRole table
@@ -83,39 +83,42 @@ namespace DAO
                 );
 
             modelBuilder.Entity<ProductColor>().HasData(
-          new ProductColor { Id = 1, Name = "Red" },
-          new ProductColor { Id = 2, Name = "Blue" },
-          new ProductColor { Id = 3, Name = "Green" },
-          new ProductColor { Id = 4, Name = "Black" },
-          new ProductColor { Id = 5, Name = "White" }
-      );
+       new ProductColor { Id = 1, Name = "Red", ColorCode = "#FF0000" },
+       new ProductColor { Id = 2, Name = "Blue", ColorCode = "#007AFF" },
+       new ProductColor { Id = 3, Name = "Green", ColorCode = "#34C759" },
+       new ProductColor { Id = 4, Name = "Black", ColorCode = "#000000" },
+       new ProductColor { Id = 5, Name = "Yellow", ColorCode = "#FFCC00" },
+       new ProductColor { Id = 6, Name = "Gold", ColorCode = "#FFD700" },
+       new ProductColor { Id = 7, Name = "Purple", ColorCode = "#AF52DE" },
+       new ProductColor { Id = 8, Name = "Grey", ColorCode = "#8E8E93" }
+   );
 
-            // Seed data for ProductColorRelation table
-            //modelBuilder.Entity<ProductColorRelation>().HasData(
-            //    new ProductColorRelation { Id = 1, ProductId = 1, ColorId = 1 },
-            //    new ProductColorRelation { Id = 2, ProductId = 1, ColorId = 2 },
-            //    new ProductColorRelation { Id = 3, ProductId = 1, ColorId = 3 },
-            //    new ProductColorRelation { Id = 4, ProductId = 2, ColorId = 1 },
-            //    new ProductColorRelation { Id = 5, ProductId = 2, ColorId = 2 },
-            //    new ProductColorRelation { Id = 6, ProductId = 3, ColorId = 1 },
-            //    new ProductColorRelation { Id = 7, ProductId = 3, ColorId = 3 },
-            //    new ProductColorRelation { Id = 8, ProductId = 4, ColorId = 2 },
-            //    new ProductColorRelation { Id = 9, ProductId = 4, ColorId = 4 },
-            //    new ProductColorRelation { Id = 10, ProductId = 5, ColorId = 1 },
-            //    new ProductColorRelation { Id = 11, ProductId = 5, ColorId = 5 },
-            //    new ProductColorRelation { Id = 12, ProductId = 6, ColorId = 1 },
-            //    new ProductColorRelation { Id = 13, ProductId = 6, ColorId = 3 },
-            //    new ProductColorRelation { Id = 14, ProductId = 7, ColorId = 2 },
-            //    new ProductColorRelation { Id = 15, ProductId = 7, ColorId = 4 },
-            //    new ProductColorRelation { Id = 16, ProductId = 8, ColorId = 1 },
-            //    new ProductColorRelation { Id = 17, ProductId = 8, ColorId = 5 },
-            //    new ProductColorRelation { Id = 18, ProductId = 9, ColorId = 2 },
-            //    new ProductColorRelation { Id = 19, ProductId = 9, ColorId = 3 },
-            //    new ProductColorRelation { Id = 20, ProductId = 10, ColorId = 1 },
-            //    new ProductColorRelation { Id = 21, ProductId = 10, ColorId = 4 },
-            //    new ProductColorRelation { Id = 22, ProductId = 11, ColorId = 2 },
-            //    new ProductColorRelation { Id = 23, ProductId = 11, ColorId = 5 }
-            //);
+
+            modelBuilder.Entity<ProductColorRelation>().HasData(
+                new ProductColorRelation { Id = 1, ProductId = 1, ColorId = 1 },
+                new ProductColorRelation { Id = 2, ProductId = 1, ColorId = 2 },
+                new ProductColorRelation { Id = 3, ProductId = 1, ColorId = 3 },
+                new ProductColorRelation { Id = 4, ProductId = 2, ColorId = 1 },
+                new ProductColorRelation { Id = 5, ProductId = 2, ColorId = 2 },
+                new ProductColorRelation { Id = 6, ProductId = 3, ColorId = 1 },
+                new ProductColorRelation { Id = 7, ProductId = 3, ColorId = 3 },
+                new ProductColorRelation { Id = 8, ProductId = 4, ColorId = 2 },
+                new ProductColorRelation { Id = 9, ProductId = 4, ColorId = 4 },
+                new ProductColorRelation { Id = 10, ProductId = 5, ColorId = 1 },
+                new ProductColorRelation { Id = 11, ProductId = 5, ColorId = 5 },
+                new ProductColorRelation { Id = 12, ProductId = 6, ColorId = 1 },
+                new ProductColorRelation { Id = 13, ProductId = 6, ColorId = 3 },
+                new ProductColorRelation { Id = 14, ProductId = 7, ColorId = 2 },
+                new ProductColorRelation { Id = 15, ProductId = 7, ColorId = 4 },
+                new ProductColorRelation { Id = 16, ProductId = 8, ColorId = 1 },
+                new ProductColorRelation { Id = 17, ProductId = 8, ColorId = 5 },
+                new ProductColorRelation { Id = 18, ProductId = 9, ColorId = 2 },
+                new ProductColorRelation { Id = 19, ProductId = 9, ColorId = 3 },
+                new ProductColorRelation { Id = 20, ProductId = 10, ColorId = 1 },
+                new ProductColorRelation { Id = 21, ProductId = 10, ColorId = 4 },
+                new ProductColorRelation { Id = 22, ProductId = 11, ColorId = 2 },
+                new ProductColorRelation { Id = 23, ProductId = 11, ColorId = 5 }
+            );
 
         }
     }

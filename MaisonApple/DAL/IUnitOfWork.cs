@@ -16,6 +16,8 @@ namespace DAL
         IRepository<Category> RepoCategory { get; set; }
         IProductImageRepository RepoProductImage { get; set; }
         IRepository<Command> RepoCommand { get; set; }
+        IRepository<ProductColorRelation> RepoProductColorRelation { get; set; }
+        IRepository<ProductColor> RepoProductColor { get; set; }
         IOrderRepository RepoOrder { get; set; }
         IRepository<Notification> RepoNotification { get; set; }
         IRepository<User> RepoUser { get; set; }

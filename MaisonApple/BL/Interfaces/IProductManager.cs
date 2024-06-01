@@ -18,5 +18,6 @@ namespace BL.Interfaces
 
         Task<ProductDto> Update(ProductDto productDto);
         Task<IEnumerable<ProductDto>> GetProductsByCategoryId(int categoryId);
+        Task<IEnumerable<ProductColorDto>> GetALlColors();
     }
 }

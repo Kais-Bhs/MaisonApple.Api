@@ -79,7 +79,8 @@ namespace DAO.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: false),
+                    ColorCode = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -316,8 +317,8 @@ namespace DAO.Migrations
                 {
                     table.PrimaryKey("PK_ProductColorRelations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductColorRelations_ProductColors_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ProductColorRelations_ProductColors_ColorId",
+                        column: x => x.ColorId,
                         principalTable: "ProductColors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -373,14 +374,17 @@ namespace DAO.Migrations
 
             migrationBuilder.InsertData(
                 table: "ProductColors",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "ColorCode", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Red" },
-                    { 2, "Blue" },
-                    { 3, "Green" },
-                    { 4, "Black" },
-                    { 5, "White" }
+                    { 1, "#FF0000", "Red" },
+                    { 2, "#007AFF", "Blue" },
+                    { 3, "#34C759", "Green" },
+                    { 4, "#000000", "Black" },
+                    { 5, "#FFCC00", "Yellow" },
+                    { 6, "#FFD700", "Gold" },
+                    { 7, "#AF52DE", "Purple" },
+                    { 8, "#8E8E93", "Grey" }
                 });
 
             migrationBuilder.InsertData(
@@ -388,17 +392,47 @@ namespace DAO.Migrations
                 columns: new[] { "Id", "CategoryId", "CurrentPrice", "Description", "InitialPrice", "IsUsed", "Name", "StockQuantity" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, "", 1200, false, "iPhone 11", 0 },
-                    { 2, 1, 0, "", 1500, false, "iPhone 12", 0 },
-                    { 3, 1, 0, "", 1800, false, "iPhone 13", 0 },
-                    { 4, 1, 0, "", 2200, false, "iPhone 13 Pro Max", 0 },
-                    { 5, 1, 0, "", 2800, false, "iPhone 15", 0 },
-                    { 6, 2, 0, "", 3000, false, "Mac Pro 2022", 0 },
-                    { 7, 2, 0, "", 2500, false, "Mac Pro 2021", 0 },
-                    { 8, 2, 0, "", 2000, false, "Mac Pro 2020", 0 },
-                    { 9, 3, 0, "", 400, false, "Apple Watch Series 7", 0 },
-                    { 10, 3, 0, "", 300, false, "Apple Watch SE", 0 },
-                    { 11, 3, 0, "", 200, false, "Apple Watch Series 3", 0 }
+                    { 1, 1, 0, "", 1200, false, "iPhone 11", 10 },
+                    { 2, 1, 0, "", 1500, false, "iPhone 12", 10 },
+                    { 3, 1, 0, "", 1800, false, "iPhone 13", 10 },
+                    { 4, 1, 0, "", 2200, false, "iPhone 13 Pro Max", 10 },
+                    { 5, 1, 0, "", 2800, false, "iPhone 15", 10 },
+                    { 6, 2, 0, "", 3000, false, "Mac Pro 2022", 10 },
+                    { 7, 2, 0, "", 2500, false, "Mac Pro 2021", 10 },
+                    { 8, 2, 0, "", 2000, false, "Mac Pro 2020", 10 },
+                    { 9, 3, 0, "", 400, false, "Apple Watch Series 7", 10 },
+                    { 10, 3, 0, "", 300, false, "Apple Watch SE", 10 },
+                    { 11, 3, 0, "", 200, false, "Apple Watch Series 3", 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductColorRelations",
+                columns: new[] { "Id", "ColorId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 },
+                    { 3, 3, 1 },
+                    { 4, 1, 2 },
+                    { 5, 2, 2 },
+                    { 6, 1, 3 },
+                    { 7, 3, 3 },
+                    { 8, 2, 4 },
+                    { 9, 4, 4 },
+                    { 10, 1, 5 },
+                    { 11, 5, 5 },
+                    { 12, 1, 6 },
+                    { 13, 3, 6 },
+                    { 14, 2, 7 },
+                    { 15, 4, 7 },
+                    { 16, 1, 8 },
+                    { 17, 5, 8 },
+                    { 18, 2, 9 },
+                    { 19, 3, 9 },
+                    { 20, 1, 10 },
+                    { 21, 4, 10 },
+                    { 22, 2, 11 },
+                    { 23, 5, 11 }
                 });
 
             migrationBuilder.InsertData(
@@ -475,6 +509,11 @@ namespace DAO.Migrations
                 name: "IX_Orders_ProductId",
                 table: "Orders",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductColorRelations_ColorId",
+                table: "ProductColorRelations",
+                column: "ColorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductColorRelations_ProductId_ColorId",

@@ -22,6 +22,9 @@ namespace BL.Mapper
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();
 
+            CreateMap<ProductColorDto, ProductColor>();
+            CreateMap<ProductColor, ProductColorDto>();
+
             CreateMap<RegisterUserDto, User>();
             CreateMap<User, RegisterUserDto>();
 

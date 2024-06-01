@@ -25,13 +25,15 @@ namespace DAL
         public IRepository<Command> RepoCommand { get; set; }
         public IOrderRepository RepoOrder { get; set; }
         public IRepository<Notification> RepoNotification { get; set; }
+        public IRepository<ProductColorRelation> RepoProductColorRelation { get; set; }
+        public IRepository<ProductColor> RepoProductColor { get; set; }     
         public UnitOfWork(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
             var dbContext = _serviceProvider.GetRequiredService<MaisonAppleContext>();
             _DAODataBase = new DAODataBase(dbContext);
 
-            RepoProduct = new ProductRepository(new DAOEntities<Product>(dbContext));
+            RepoProduct = new ProductRepository(new DAOEntities<Product>(dbContext), new DAOEntities<ProductColorRelation>(dbContext));
             RepoCategory = new Repository<Category>(new DAOEntities<Category>(dbContext));
             RepoProductImage = new ProductImageRepository(new DAOEntities<ProductImage>(dbContext));
             RepoUser = new Repository<User>(new DAOEntities<User>(dbContext));
@@ -39,6 +41,8 @@ namespace DAL
             RepoCommand = new Repository<Command>(new DAOEntities<Command>(dbContext));
             RepoOrder = new OrderRepository(new DAOEntities<Order>(dbContext));
             RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));
+            RepoProductColorRelation = new Repository<ProductColorRelation>(new DAOEntities<ProductColorRelation>(dbContext));
+            RepoProductColor = new Repository<ProductColor>(new DAOEntities<ProductColor>(dbContext));
         }
 
         /// <summary>

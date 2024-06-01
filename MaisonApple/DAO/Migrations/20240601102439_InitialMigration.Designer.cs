@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240531204823_InitialMigration")]
+    [Migration("20240601102439_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -196,7 +196,7 @@ namespace DAO.Migrations
                             InitialPrice = 1200,
                             IsUsed = false,
                             Name = "iPhone 11",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -207,7 +207,7 @@ namespace DAO.Migrations
                             InitialPrice = 1500,
                             IsUsed = false,
                             Name = "iPhone 12",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -218,7 +218,7 @@ namespace DAO.Migrations
                             InitialPrice = 1800,
                             IsUsed = false,
                             Name = "iPhone 13",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -229,7 +229,7 @@ namespace DAO.Migrations
                             InitialPrice = 2200,
                             IsUsed = false,
                             Name = "iPhone 13 Pro Max",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -240,7 +240,7 @@ namespace DAO.Migrations
                             InitialPrice = 2800,
                             IsUsed = false,
                             Name = "iPhone 15",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -251,7 +251,7 @@ namespace DAO.Migrations
                             InitialPrice = 3000,
                             IsUsed = false,
                             Name = "Mac Pro 2022",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -262,7 +262,7 @@ namespace DAO.Migrations
                             InitialPrice = 2500,
                             IsUsed = false,
                             Name = "Mac Pro 2021",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -273,7 +273,7 @@ namespace DAO.Migrations
                             InitialPrice = 2000,
                             IsUsed = false,
                             Name = "Mac Pro 2020",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -284,7 +284,7 @@ namespace DAO.Migrations
                             InitialPrice = 400,
                             IsUsed = false,
                             Name = "Apple Watch Series 7",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -295,7 +295,7 @@ namespace DAO.Migrations
                             InitialPrice = 300,
                             IsUsed = false,
                             Name = "Apple Watch SE",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         },
                         new
                         {
@@ -306,7 +306,7 @@ namespace DAO.Migrations
                             InitialPrice = 200,
                             IsUsed = false,
                             Name = "Apple Watch Series 3",
-                            StockQuantity = 0
+                            StockQuantity = 10
                         });
                 });
 
@@ -315,6 +315,10 @@ namespace DAO.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("ColorCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -328,27 +332,50 @@ namespace DAO.Migrations
                         new
                         {
                             Id = 1,
+                            ColorCode = "#FF0000",
                             Name = "Red"
                         },
                         new
                         {
                             Id = 2,
+                            ColorCode = "#007AFF",
                             Name = "Blue"
                         },
                         new
                         {
                             Id = 3,
+                            ColorCode = "#34C759",
                             Name = "Green"
                         },
                         new
                         {
                             Id = 4,
+                            ColorCode = "#000000",
                             Name = "Black"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "White"
+                            ColorCode = "#FFCC00",
+                            Name = "Yellow"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ColorCode = "#FFD700",
+                            Name = "Gold"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ColorCode = "#AF52DE",
+                            Name = "Purple"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ColorCode = "#8E8E93",
+                            Name = "Grey"
                         });
                 });
 
@@ -366,10 +393,152 @@ namespace DAO.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ColorId");
+
                     b.HasIndex("ProductId", "ColorId")
                         .IsUnique();
 
                     b.ToTable("ProductColorRelations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ColorId = 1,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ColorId = 2,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ColorId = 3,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ColorId = 1,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ColorId = 2,
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ColorId = 1,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ColorId = 3,
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ColorId = 2,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ColorId = 4,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ColorId = 1,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ColorId = 5,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ColorId = 1,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ColorId = 3,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ColorId = 2,
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ColorId = 4,
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ColorId = 1,
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ColorId = 5,
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ColorId = 2,
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ColorId = 3,
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ColorId = 1,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ColorId = 4,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ColorId = 2,
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ColorId = 5,
+                            ProductId = 11
+                        });
                 });
 
             modelBuilder.Entity("Entities.ProductImage", b =>
@@ -738,13 +907,13 @@ namespace DAO.Migrations
 
             modelBuilder.Entity("Entities.ProductColorRelation", b =>
                 {
-                    b.HasOne("Entities.Product", "Product")
+                    b.HasOne("Entities.ProductColor", "ProductColor")
                         .WithMany("ProductColorRelations")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.ProductColor", "ProductColor")
+                    b.HasOne("Entities.Product", "Product")
                         .WithMany("ProductColorRelations")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

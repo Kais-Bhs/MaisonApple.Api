@@ -13,5 +13,6 @@ namespace DAL.CustomRepositories
         Task Update(Product Product);
         ValueTask Delete(Product Product);
         Task<IEnumerable<Product>> GetProductsByCategoryId(int categoryId);
+        Task<IEnumerable<ProductColor>> GetColorsOfAProduct(int productId);
     }
 }

@@ -17,7 +17,7 @@ namespace DAO.Configurations
 
             builder.HasOne(x => x.ProductColor)
               .WithMany(x => x.ProductColorRelations)
-              .HasForeignKey(x => x.ProductId);
+              .HasForeignKey(x => x.ColorId);
 
             builder.HasOne(x => x.Product)
               .WithMany(x => x.ProductColorRelations)

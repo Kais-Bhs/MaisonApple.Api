@@ -102,5 +102,18 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpGet("GetALlColors")]
+        public async Task<ActionResult<IEnumerable<ProductColorDto>>> GetALlColors()
+        {
+            try
+            {
+                var result = await _manager.GetALlColors();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }
