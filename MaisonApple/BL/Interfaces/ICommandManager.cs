@@ -9,7 +9,7 @@ namespace BL.Interfaces
 {
     public interface ICommandManager
     {
-        Task<int> Add(CommandDto PaymentDto);
+        Task<int> Add(AddCommandDto AddCommandDto);
 
         Task Delete(int id);
 
@@ -18,7 +18,7 @@ namespace BL.Interfaces
         Task<CommandDto> Get(int id);
 
         Task<CommandDto> Update(CommandDto PaymentDto);
-        Task AcceptCommmand(CommandDto commandDto);
+        Task AcceptCommmand(AddCommandDto commandDto);
 
         Task RejectCommmand(int commandId);
         Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId);

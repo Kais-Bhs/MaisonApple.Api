@@ -31,6 +31,12 @@ namespace BL.Mapper
             CreateMap<CommandDto, Command>().ForMember(dest => dest.Orders, opt => opt.Ignore());
             CreateMap<Command, CommandDto>().ForMember(dest => dest.Orders, opt => opt.Ignore());
 
+            CreateMap<AddCommandDto, Command>();
+            CreateMap<Command, AddCommandDto>();
+
+            CreateMap<AddOrderDto, Order>();
+            CreateMap<Order, AddOrderDto>();
+
             CreateMap<OrderDto, Order>();
             CreateMap<Order, OrderDto>();
 

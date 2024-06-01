@@ -21,7 +21,7 @@ namespace DAO.Configurations
 
             builder.HasMany(x => x.Orders)
                 .WithOne(x => x.Payment)
-                .HasForeignKey(x => x.PaymentId);
+                .HasForeignKey(x => x.CommandId);
 
             builder.HasOne(x => x.User)
                 .WithMany(u => u.payments)

@@ -48,7 +48,7 @@ namespace MaisonApple.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<ActionResult<int>> Add(CommandDto dto)
+        public async Task<ActionResult<int>> Add(AddCommandDto dto)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace MaisonApple.Controllers
             }
         }
         [HttpPut("AcceptCommmand")]
-        public async Task<IActionResult> AcceptCommmand(CommandDto commandDto)
+        public async Task<IActionResult> AcceptCommmand(AddCommandDto commandDto)
         {
             try
             {

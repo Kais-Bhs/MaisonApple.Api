@@ -15,7 +15,7 @@ namespace DAO.Configurations
             builder.Property(x => x.Title);
             builder.Property(x => x.Date);
             builder.Property(x => x.Description);
-            builder.Property(x => x.IsReaded);
+            builder.Property(x => x.IsRead);
 
             builder.HasOne(x => x.User)
                 .WithMany(u => u.Notifications)

@@ -106,7 +106,7 @@ namespace DAO.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsReaded")
+                    b.Property<bool>("IsRead")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Title")
@@ -130,7 +130,7 @@ namespace DAO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("PaymentId")
+                    b.Property<int>("CommandId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
@@ -141,7 +141,7 @@ namespace DAO.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("CommandId");
 
                     b.HasIndex("ProductId");
 
@@ -188,8 +188,8 @@ namespace DAO.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 1200,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 1200,
                             IsUsed = false,
                             Name = "iPhone 11",
@@ -199,8 +199,8 @@ namespace DAO.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 1500,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 1500,
                             IsUsed = false,
                             Name = "iPhone 12",
@@ -210,8 +210,8 @@ namespace DAO.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 1800,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 1800,
                             IsUsed = false,
                             Name = "iPhone 13",
@@ -221,8 +221,8 @@ namespace DAO.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 2200,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 2200,
                             IsUsed = false,
                             Name = "iPhone 13 Pro Max",
@@ -232,8 +232,8 @@ namespace DAO.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 2800,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 2800,
                             IsUsed = false,
                             Name = "iPhone 15",
@@ -243,8 +243,8 @@ namespace DAO.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 3000,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 3000,
                             IsUsed = false,
                             Name = "Mac Pro 2022",
@@ -254,8 +254,8 @@ namespace DAO.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 2500,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 2500,
                             IsUsed = false,
                             Name = "Mac Pro 2021",
@@ -265,8 +265,8 @@ namespace DAO.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 2000,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 2000,
                             IsUsed = false,
                             Name = "Mac Pro 2020",
@@ -276,8 +276,8 @@ namespace DAO.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 400,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 400,
                             IsUsed = false,
                             Name = "Apple Watch Series 7",
@@ -287,8 +287,8 @@ namespace DAO.Migrations
                         {
                             Id = 10,
                             CategoryId = 3,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 300,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 300,
                             IsUsed = false,
                             Name = "Apple Watch SE",
@@ -298,8 +298,8 @@ namespace DAO.Migrations
                         {
                             Id = 11,
                             CategoryId = 3,
-                            CurrentPrice = 0,
-                            Description = "",
+                            CurrentPrice = 200,
+                            Description = "Écran:\r\n\r\nSuper Retina XDR OLED\r\n6,1 pouces (diagonale)\r\nRésolution de 2532 x 1170 pixels (460 ppp)\r\nHDR\r\nTrue Tone\r\nGamme de couleurs étendue (P3)\r\nHaptic Touch\r\nContraste de 2 000 000:1 (standard)\r\nLuminosité maximale de 800 nits (standard) ; 1200 nits (HDR)\r\nRevêtement oléophobe résistant aux traces de doigts\r\nAppareil photo:\r\n\r\nDouble appareil photo arrière :\r\nGrand angle 12 Mpx : 26 mm, ouverture ƒ/1.5, stabilisation optique de l'image par déplacement du capteur, 100 % Focus Pixels\r\nUltra grand angle 12 Mpx : 13 mm, ouverture ƒ/2.4, champ de vision de 120°\r\nZoom optique arrière 2x ; zoom numérique jusqu'à 5x\r\nCaméra frontale TrueDepth 12 Mpx\r\nMode Cinématique pour la vidéo en 4K Dolby Vision jusqu'à 30 ips\r\nEnregistrement vidéo HDR 4K Dolby Vision jusqu'à 60 ips\r\nPerformances:\r\n\r\nPuce A15 Bionic\r\nBatterie:\r\n\r\nJusqu'à 19 heures de lecture vidéo\r\nJusqu'à 16 heures de lecture audio\r\nStockage:\r\n\r\n128 Go, 256 Go ou 512 Go\r\nAutres:\r\n\r\niOS 16\r\n5G\r\nWi-Fi 6 (802.11ax)\r\nBluetooth 5.3\r\nFace ID\r\nLightning\r\nCertifié IP68",
                             InitialPrice = 200,
                             IsUsed = false,
                             Name = "Apple Watch Series 3",
@@ -593,37 +593,37 @@ namespace DAO.Migrations
                         new
                         {
                             Id = 6,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZokHFYzzt5CenynhMyHQdkcHbz-015EIStA&s",
                             ProductId = 6
                         },
                         new
                         {
                             Id = 7,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://www.cnet.com/a/img/resize/483f6629791616f58f3a205df4d52e40b8cba429/hub/2024/03/06/725a8e72-aa72-439a-9357-af161b30f3c9/apple-macbook-air-m3-2024-14.jpg?auto=webp&fit=crop&height=1200&width=1200",
                             ProductId = 7
                         },
                         new
                         {
                             Id = 8,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://media.wired.com/photos/643d7e61cdba28f045ac3f59/master/pass/macbook_sec_GettyImages-1368668740.jpg",
                             ProductId = 8
                         },
                         new
                         {
                             Id = 9,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Vd_ryVhLC8nBtyZbgQ03y2_BFIrW1zcfFg&s",
                             ProductId = 9
                         },
                         new
                         {
                             Id = 10,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch-series7_hero_09142021_big.jpg.slideshow-medium_2x.jpg",
                             ProductId = 10
                         },
                         new
                         {
                             Id = 11,
-                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ImageUrl = "https://www.apple.com/newsroom/images/2023/09/apple-unveils-apple-watch-ultra-2/tile/Apple-Watch-Ultra-2-hero-230912.jpg.og.jpg?202405161951",
                             ProductId = 11
                         });
                 });
@@ -876,7 +876,7 @@ namespace DAO.Migrations
                 {
                     b.HasOne("Entities.Command", "Payment")
                         .WithMany("Orders")
-                        .HasForeignKey("PaymentId")
+                        .HasForeignKey("CommandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

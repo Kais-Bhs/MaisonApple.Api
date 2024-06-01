@@ -25,21 +25,21 @@ namespace BL.Managers
             _userStore = userManager;
             _mailService = mailService;
         }
-        public async Task<int> Add(CommandDto commandDto)
+        public async Task<int> Add(AddCommandDto commandDto)
         {
             try
             {
                 await _unitOfWork.BeginTransactionAsync();
 
-                var payment = _mapper.Map<Command>(commandDto);
-                await _unitOfWork.RepoCommand.Add(payment);
+                var command = _mapper.Map<Command>(commandDto);
+                await _unitOfWork.RepoCommand.Add(command);
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
 
                 foreach (var orderDto in commandDto.Orders)
                 {
                    var order = _mapper.Map<Order>(orderDto);
-                    order.PaymentId = payment.Id;
+                    order.CommandId = command.Id;
                   
                     await _unitOfWork.BeginTransactionAsync();
                     await _unitOfWork.RepoOrder.Add(order);
@@ -48,7 +48,7 @@ namespace BL.Managers
                
                 }
                 await SendCommandSendedMail(commandDto);
-                return payment.Id;
+                return command.Id;
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace BL.Managers
             }
         }
 
-        public async Task AcceptCommmand(CommandDto commandDto)
+        public async Task AcceptCommmand(AddCommandDto commandDto)
         {
             try
             {
@@ -221,7 +221,7 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
-        private async Task SendAcceptCommandMail(CommandDto commandDto)
+        private async Task SendAcceptCommandMail(AddCommandDto commandDto)
         {
             string subject = $"Votre Commande de referenc {commandDto.Reference} a ete bien accepté";
 
@@ -241,9 +241,10 @@ namespace BL.Managers
                 $"Cordialement";
 
 
-            await _mailService.SendEmail(commandDto.User.Email, subject, body, null, null);
+            var user = await _userStore.FindByIdAsync(commandDto.UserId);
+            await _mailService.SendEmail(user.Email, subject, body, null, null);
         }
-        private async Task SendCommandSendedMail(CommandDto commandDto)
+        private async Task SendCommandSendedMail(AddCommandDto commandDto)
         {
             string subject = $"Votre Commande de referenc {commandDto.Reference} est sous traitement";
 

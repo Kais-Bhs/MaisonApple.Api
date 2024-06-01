@@ -10,6 +10,6 @@ namespace Entities
         public DateTime Date { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public bool IsReaded { get; set; }
+        public bool IsRead { get; set; }
     }
 }

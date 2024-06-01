@@ -105,7 +105,7 @@ namespace DAL.CustomRepositories
         {
             try
             {
-                var Orders = (await _dAOOrder.Query(us => us.PaymentId == commandId, us => us.Product ));
+                var Orders = (await _dAOOrder.Query(us => us.CommandId == commandId, us => us.Product ));
 
                 return Orders;
             }
