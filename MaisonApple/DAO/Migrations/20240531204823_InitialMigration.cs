@@ -4,6 +4,8 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DAO.Migrations
 {
     /// <inheritdoc />
@@ -349,6 +351,73 @@ namespace DAO.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1", null, "ADMIN", "ADMIN" },
+                    { "2", null, "USER", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "IPHONE" },
+                    { 2, "MAC" },
+                    { 3, "AppleWATCH" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductColors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Red" },
+                    { 2, "Blue" },
+                    { 3, "Green" },
+                    { 4, "Black" },
+                    { 5, "White" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CurrentPrice", "Description", "InitialPrice", "IsUsed", "Name", "StockQuantity" },
+                values: new object[,]
+                {
+                    { 1, 1, 0, "", 1200, false, "iPhone 11", 0 },
+                    { 2, 1, 0, "", 1500, false, "iPhone 12", 0 },
+                    { 3, 1, 0, "", 1800, false, "iPhone 13", 0 },
+                    { 4, 1, 0, "", 2200, false, "iPhone 13 Pro Max", 0 },
+                    { 5, 1, 0, "", 2800, false, "iPhone 15", 0 },
+                    { 6, 2, 0, "", 3000, false, "Mac Pro 2022", 0 },
+                    { 7, 2, 0, "", 2500, false, "Mac Pro 2021", 0 },
+                    { 8, 2, 0, "", 2000, false, "Mac Pro 2020", 0 },
+                    { 9, 3, 0, "", 400, false, "Apple Watch Series 7", 0 },
+                    { 10, 3, 0, "", 300, false, "Apple Watch SE", 0 },
+                    { 11, 3, 0, "", 200, false, "Apple Watch Series 3", 0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductImages",
+                columns: new[] { "Id", "ImageData", "ImageUrl", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, null, "https://media.ldlc.com/r1600/ld/products/00/05/92/68/LD0005926880_1.jpg", 1 },
+                    { 2, null, "https://m.media-amazon.com/images/I/510WkOj8FLL._AC_UF894,1000_QL80_.jpg", 2 },
+                    { 3, null, "https://mk-media.mytek.tn/media/catalog/product/cache/8be3f98b14227a82112b46963246dfe1/i/p/iph-13-128-sl_2.jpg", 3 },
+                    { 4, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 4 },
+                    { 5, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 5 },
+                    { 6, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 6 },
+                    { 7, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 7 },
+                    { 8, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 8 },
+                    { 9, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 9 },
+                    { 10, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 10 },
+                    { 11, null, "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg", 11 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

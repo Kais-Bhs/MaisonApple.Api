@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240531174611_InitialMigration")]
+    [Migration("20240531204823_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -35,6 +35,23 @@ namespace DAO.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "IPHONE"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "MAC"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "AppleWATCH"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Command", b =>
@@ -168,6 +185,129 @@ namespace DAO.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 1200,
+                            IsUsed = false,
+                            Name = "iPhone 11",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 1500,
+                            IsUsed = false,
+                            Name = "iPhone 12",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 1800,
+                            IsUsed = false,
+                            Name = "iPhone 13",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 1,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 2200,
+                            IsUsed = false,
+                            Name = "iPhone 13 Pro Max",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 1,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 2800,
+                            IsUsed = false,
+                            Name = "iPhone 15",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 3000,
+                            IsUsed = false,
+                            Name = "Mac Pro 2022",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 2,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 2500,
+                            IsUsed = false,
+                            Name = "Mac Pro 2021",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 2,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 2000,
+                            IsUsed = false,
+                            Name = "Mac Pro 2020",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 3,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 400,
+                            IsUsed = false,
+                            Name = "Apple Watch Series 7",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 3,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 300,
+                            IsUsed = false,
+                            Name = "Apple Watch SE",
+                            StockQuantity = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 3,
+                            CurrentPrice = 0,
+                            Description = "",
+                            InitialPrice = 200,
+                            IsUsed = false,
+                            Name = "Apple Watch Series 3",
+                            StockQuantity = 0
+                        });
                 });
 
             modelBuilder.Entity("Entities.ProductColor", b =>
@@ -183,6 +323,33 @@ namespace DAO.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductColors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Red"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Blue"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Green"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Black"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "White"
+                        });
                 });
 
             modelBuilder.Entity("Entities.ProductColorRelation", b =>
@@ -225,6 +392,74 @@ namespace DAO.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "https://media.ldlc.com/r1600/ld/products/00/05/92/68/LD0005926880_1.jpg",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "https://m.media-amazon.com/images/I/510WkOj8FLL._AC_UF894,1000_QL80_.jpg",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "https://mk-media.mytek.tn/media/catalog/product/cache/8be3f98b14227a82112b46963246dfe1/i/p/iph-13-128-sl_2.jpg",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg",
+                            ProductId = 11
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -251,6 +486,20 @@ namespace DAO.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "ADMIN",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "USER",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
