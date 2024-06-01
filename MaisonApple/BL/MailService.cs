@@ -51,6 +51,8 @@ namespace BL
                     Port = _smtpPort,
                     Credentials = new NetworkCredential(_smtpUsername, _smtpPassword),
                     EnableSsl = _smtpEnableSsl,
+                    UseDefaultCredentials = false,
+                    DeliveryMethod = SmtpDeliveryMethod.Network
                 };
 
                 var message = new MailMessage

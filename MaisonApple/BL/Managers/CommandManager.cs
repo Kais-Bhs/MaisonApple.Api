@@ -147,7 +147,7 @@ namespace BL.Managers
 
                         if (product.StockQuantity < 3)
                         {
-                            var adminNotification = new Notification { Date = DateTime.Now, Title = $"Stock du produit {product.Name} est en basse", Description = $"Stock du produit {product.Name} est en basse" };
+                            var adminNotification = new Notification { Date = DateTime.Now, Title = $"Inventaire", Description = $"Stock du produit {product.Name} est en basse" };
 
                             var users = await _userStore.GetUsersInRoleAsync("ADMIN");
 
@@ -170,7 +170,7 @@ namespace BL.Managers
                 {
                     commandDto.CommandStatus = CommandStatusDto.Accepted;
                     var command = _mapper.Map<Command>(commandDto);
-                    var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Votre Commande de reference {commandDto.Reference} est bien acceptée", Description = $"Votre Commande de reference {commandDto.Reference} est bien acceptée" };
+                    var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Commande Acceptée", Description = $"Votre Commande de reference {commandDto.Reference} est bien acceptée" };
                     await _unitOfWork.BeginTransactionAsync();
                     await _unitOfWork.RepoCommand.Update(command);
                     await _unitOfWork.RepoNotification.Add(notification);
@@ -195,7 +195,7 @@ namespace BL.Managers
 
                     commandDto.CommandStatus = CommandStatusDto.Rejected;
                     var command = _mapper.Map<Command>(commandDto);
-                    var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" , Description = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" };
+                    var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Commande Rejetée" , Description = $"Votre Commande de reference {commandDto.Reference} est bien rejetée" };
                     await _unitOfWork.BeginTransactionAsync();
                     await _unitOfWork.RepoCommand.Update(command);
                     await _unitOfWork.RepoNotification.Add(notification);
@@ -250,7 +250,8 @@ namespace BL.Managers
             var produits = string.Empty;
             foreach (var order in commandDto.Orders)
             {
-                produits = produits + "" + $"{order.Quantity} items du produit {order.ProductId}";
+                var productName = (await _unitOfWork.RepoProduct.Get(order.ProductId)).Name;
+                produits = produits + "" + $"{order.Quantity} items du produit {productName}";
             }
             string body = $"Bonjour,\r\n\r\n" +
                 $"Votre commande de reference {commandDto.Reference} est en cours de traitement.On vous infomre son etat tres bientot\r\n\r\n" +
@@ -262,8 +263,9 @@ namespace BL.Managers
                 $"Equipe Maison D'apple,\n" +
                 $"Cordialement";
 
+            var user = await _userStore.FindByIdAsync(commandDto.UserId);
 
-            await _mailService.SendEmail(commandDto.User.Email, subject, body, null, null);
+            await _mailService.SendEmail(user.Email, subject, body, null, null);
         }
     }
 }

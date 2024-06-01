@@ -74,12 +74,12 @@ namespace DAO
                   new ProductImage { Id = 3, ProductId = 3, ImageUrl = "https://mk-media.mytek.tn/media/catalog/product/cache/8be3f98b14227a82112b46963246dfe1/i/p/iph-13-128-sl_2.jpg" },
                    new ProductImage { Id = 4, ProductId = 4, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
                     new ProductImage { Id = 5, ProductId = 5, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                     new ProductImage { Id = 6, ProductId = 6, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                      new ProductImage { Id = 7, ProductId = 7, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                       new ProductImage { Id = 8, ProductId = 8, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                        new ProductImage { Id = 9, ProductId = 9, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                        new ProductImage { Id = 10, ProductId = 10, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" },
-                        new ProductImage { Id = 11, ProductId = 11, ImageUrl = "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg" }
+                     new ProductImage { Id = 6, ProductId = 6, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZokHFYzzt5CenynhMyHQdkcHbz-015EIStA&s" },
+                      new ProductImage { Id = 7, ProductId = 7, ImageUrl = "https://www.cnet.com/a/img/resize/483f6629791616f58f3a205df4d52e40b8cba429/hub/2024/03/06/725a8e72-aa72-439a-9357-af161b30f3c9/apple-macbook-air-m3-2024-14.jpg?auto=webp&fit=crop&height=1200&width=1200" },
+                       new ProductImage { Id = 8, ProductId = 8, ImageUrl = "https://media.wired.com/photos/643d7e61cdba28f045ac3f59/master/pass/macbook_sec_GettyImages-1368668740.jpg" },
+                        new ProductImage { Id = 9, ProductId = 9, ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Vd_ryVhLC8nBtyZbgQ03y2_BFIrW1zcfFg&s" },
+                        new ProductImage { Id = 10, ProductId = 10, ImageUrl = "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch-series7_hero_09142021_big.jpg.slideshow-medium_2x.jpg" },
+                        new ProductImage { Id = 11, ProductId = 11, ImageUrl = "https://www.apple.com/newsroom/images/2023/09/apple-unveils-apple-watch-ultra-2/tile/Apple-Watch-Ultra-2-hero-230912.jpg.og.jpg?202405161951" }
                 );
 
             modelBuilder.Entity<ProductColor>().HasData(
