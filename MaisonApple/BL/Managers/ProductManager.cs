@@ -3,6 +3,8 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
+using System.Collections.Generic;
+using System.Drawing;
 using AutoMapper;
 using BL.Interfaces;
 using DAL;
@@ -118,7 +120,29 @@ namespace BL.Managers
                 await _unitOfWork.RepoProduct.Update(product);
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
+                //var images = await _unitOfWork.RepoProductImage.GetProductImagesByProductId(productDto.Id);
 
+                //foreach (var image in _mapper.Map<IEnumerable<ProductImageDto>>(images))
+                //{
+                //    if (!productDto.Images.Contains(image)) { 
+
+                        
+                //        await _unitOfWork.BeginTransactionAsync();
+                //        await _unitOfWork.RepoProductImage.Delete(_mapper.Map <ProductImage> (image));
+                //        await _unitOfWork.CommitTransactionAsync();
+                //        await _unitOfWork.SaveAsync();
+                //    }
+                //}
+                //foreach(var image in productDto.Images)
+                //{
+                //    if(image.Id == 0)
+                //    {
+                //        await _unitOfWork.BeginTransactionAsync();
+                //        await _unitOfWork.RepoProductImage.Add(_mapper.Map<ProductImage>(image));
+                //        await _unitOfWork.CommitTransactionAsync();
+                //        await _unitOfWork.SaveAsync();
+                //    }
+                //}
                 foreach (var color in oldProdcut.Color)
                 {
                     if (!productDto.Color.Contains(color))

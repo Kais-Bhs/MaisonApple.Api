@@ -35,7 +35,7 @@ namespace DAO.DAO
                 }
 
                 var list = await query.Where(predicate).ToListAsync();
-                return list.AsQueryable();
+                return list.AsQueryable().AsNoTracking();
             }
             catch (Exception ex)
             {
