@@ -36,17 +36,7 @@ namespace BL.Managers
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
 
-                foreach (var orderDto in commandDto.Orders)
-                {
-                    var order = _mapper.Map<Order>(orderDto);
-                    order.CommandId = command.Id;
-
-                    await _unitOfWork.BeginTransactionAsync();
-                    await _unitOfWork.RepoOrder.Add(order);
-                    await _unitOfWork.CommitTransactionAsync();
-                    await _unitOfWork.SaveAsync();
-
-                }
+         
                 await SendCommandSendedMail(commandDto);
                 return command.Id;
             }
