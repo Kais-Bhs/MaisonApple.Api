@@ -60,16 +60,17 @@ namespace BL
                     From = new MailAddress(_smtpUsername),
                     Subject = sujet,
                     Body = corps,
+                    IsBodyHtml = true
                 };
 
-                message.To.Add(destinataire);
+                message.To.Add(new MailAddress(destinataire));
                 if (PieceJointe != null && PieceJointe.Length > 0)
                 {
                     var attachment = new Attachment(new MemoryStream(PieceJointe), $"{namePieceJointe}" + ".pdf");
                     message.Attachments.Add(attachment);
                 }
                 var test = JsonConvert.SerializeObject(message);
-                //await smtpClient.SendMailAsync(message);
+               smtpClient.Send(message);
             }
 
             catch (Exception ex)

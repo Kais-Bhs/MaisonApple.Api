@@ -215,22 +215,70 @@ namespace BL.Managers
         }
         private async Task SendAcceptCommandMail(AddCommandDto commandDto)
         {
-            string subject = $"Votre Commande de referenc {commandDto.Reference} a ete bien accepté";
+            string subject = $"Votre Commande de reference {commandDto.Reference} a ete bien accepté";
 
             var produits = string.Empty;
             foreach (var order in commandDto.Orders)
             {
-                produits = produits + "" + $"{order.Quantity} items du produit {order.ProductId}";
+                var productName = (await _unitOfWork.RepoProduct.Get(order.ProductId)).Name;
+                produits = produits + "" + $" <li>{order.Quantity} * {productName} </li>";
             }
-            string body = $"Bonjour,\r\n\r\n" +
-                $"Nous sommes ravis de vous annoncer que votre commande de reference {commandDto.Reference} a ete bien acceptée.\r\n\r\n" +
-                $"Deatils de la commande : \r\n\r\n" +
-                $"Date :{commandDto.Date} \r\n\r\n" +
-                $"Amount :{commandDto.Amount} \r\n\r\n" +
-                $"Liste des produits commandées : {produits}\r\n\r\n" +
-                $"Merci pour votre confiance.\r\n\r\n" +
-                $"Equipe Maison D'apple,\n" +
-                $"Cordialement";
+            string body = $@"
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }}
+        .container {{
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }}
+        .header {{
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }}
+        .details {{
+            margin: 20px 0;
+        }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <p>Bonjour,</p>
+        <p>Nous sommes ravis de vous annoncer que votre commande de référence <strong>{commandDto.Reference}</strong> a été bien acceptée.</p>
+        <div class='details'>
+            <p><strong>Détails de la commande :</strong></p>
+            <p>Date : {commandDto.Date}</p>
+            <p>Montant : {commandDto.Amount}</p>
+            <p>Liste des produits commandés :</p>
+            <ul>
+                {produits}
+            </ul>
+        </div>
+        <p>Merci pour votre confiance.</p>
+        <p class='footer'>Équipe Maison d'Apple,<br>Cordialement</p>
+    </div>
+</body>
+</html>";
+
 
 
             var user = await _userStore.FindByIdAsync(commandDto.UserId);
@@ -238,23 +286,70 @@ namespace BL.Managers
         }
         private async Task SendCommandSendedMail(AddCommandDto commandDto)
         {
-            string subject = $"Votre Commande de referenc {commandDto.Reference} est sous traitement";
+            string subject = $"Votre Commande de reference {commandDto.Reference} est sous traitement";
 
             var produits = string.Empty;
             foreach (var order in commandDto.Orders)
             {
                 var productName = (await _unitOfWork.RepoProduct.Get(order.ProductId)).Name;
-                produits = produits + "" + $"{order.Quantity} items du produit {productName}";
+                produits = produits + "" + $" <li>{order.Quantity} * {productName} </li>";
             }
-            string body = $"Bonjour,\r\n\r\n" +
-                $"Votre commande de reference {commandDto.Reference} est en cours de traitement.On vous infomre son etat tres bientot\r\n\r\n" +
-                $"Deatils de la commande : \r\n\r\n" +
-                $"Date :{commandDto.Date} \r\n\r\n" +
-                $"Amount :{commandDto.Amount} \r\n\r\n" +
-                $"Liste des produits commandées : {produits}\r\n\r\n" +
-                $"Merci pour votre confiance.\r\n\r\n" +
-                $"Equipe Maison D'apple,\n" +
-                $"Cordialement";
+            string body = $@"
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }}
+        .container {{
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }}
+        .header {{
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }}
+        .details {{
+            margin: 20px 0;
+        }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <p>Bonjour,</p>
+        <p>Votre commande de référence <strong>{commandDto.Reference}</strong> est en cours de traitement. Nous vous informerons de son état très bientôt.</p>
+        <div class='details'>
+            <p><strong>Détails de la commande :</strong></p>
+            <p>Date : {commandDto.Date}</p>
+            <p>Montant : {commandDto.Amount}</p>
+            <p>Liste des produits commandés :</p>
+            <ul>
+                {produits}
+            </ul>
+        </div>
+        <p>Merci pour votre confiance.</p>
+        <p class='footer'>Équipe Maison d'Apple,<br>Cordialement</p>
+    </div>
+</body>
+</html>";
+
 
             var user = await _userStore.FindByIdAsync(commandDto.UserId);
 

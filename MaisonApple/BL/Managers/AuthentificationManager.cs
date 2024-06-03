@@ -169,14 +169,65 @@ namespace BL.Managers
         {
             string subject = "Confirmez votre adresse e-mail pour profiter pleinement de MaisonApple";
 
-            string body = $"Bonjour,\r\n\r\n" +
-                $"Merci de vous être inscrit sur MaisonApple, la boutique en ligne dédiée aux produits Apple. " +
-                $"Pour finaliser votre inscription et profiter pleinement de tous nos services, nous avons besoin de vérifier votre adresse e-mail.\r\n\r\n" +
-                $"Cliquez sur le bouton ci-dessous pour confirmer votre adresse e-mail :\r\n\r\n[Vérifier mon adresse e-mail] {verificationLink}\r\n\r\n" +
-                $"En tant que client vérifié, vous pourrez :\r\n\r\nSuivre vos commandes en temps réel\r\nBénéficier de nos offres promotionnelles exclusives\r\n" +
-                $"Accéder à notre service après-vente en ligne\r\nSi vous ne parvenez pas à cliquer sur le bouton, copiez et collez le lien suivant dans votre navigateur : {verificationLink}\r\n\r\n" +
-                $"Si vous n'avez pas créé de compte sur MaisonApple, veuillez ignorer ce message.\r\n\r\nMerci de votre confiance et à bientôt sur MaisonApple.\r\n\r\n" +
-                $"L'équipe MaisonApple";
+            string body = $@"
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }}
+        .container {{
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }}
+        .button {{
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            color: #fff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+        }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <p>Bonjour,</p>
+        <p>Merci de vous être inscrit sur MaisonApple, la boutique en ligne dédiée aux produits Apple. Pour finaliser votre inscription et profiter pleinement de tous nos services, nous avons besoin de vérifier votre adresse e-mail.</p>
+        <p>Cliquez sur le bouton ci-dessous pour confirmer votre adresse e-mail :</p>
+        <p><a href='{verificationLink}' class='button'>Vérifier mon adresse e-mail</a></p>
+        <p>En tant que client vérifié, vous pourrez :</p>
+        <ul>
+            <li>Suivre vos commandes en temps réel</li>
+            <li>Bénéficier de nos offres promotionnelles exclusives</li>
+            <li>Accéder à notre service après-vente en ligne</li>
+        </ul>
+        <p>Si vous ne parvenez pas à cliquer sur le bouton, copiez et collez le lien suivant dans votre navigateur : <a href='{verificationLink}'>{verificationLink}</a></p>
+        <p>Si vous n'avez pas créé de compte sur MaisonApple, veuillez ignorer ce message.</p>
+        <p>Merci de votre confiance et à bientôt sur MaisonApple.</p>
+        <p class='footer'>L'équipe MaisonApple</p>
+    </div>
+</body>
+</html>";
+
 
             await _mailService.SendEmail(email, subject, body, null, null);
         }
