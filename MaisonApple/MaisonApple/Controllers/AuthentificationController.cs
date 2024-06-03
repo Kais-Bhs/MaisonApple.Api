@@ -63,7 +63,7 @@ namespace MaisonApple.Controllers
             try
             {
                 await _manager.VerifyEmail(userId);
-
+                
                 return Ok();
             }
             catch (Exception ex)

@@ -56,7 +56,7 @@ namespace BL.Managers
 
                     user.PasswordHash = hashedPassword;
                     user.UserName = updateUserDto.UserName;
-                    user.PhoneNumber = updateUserDto.PhoneNumber;
+                    user.PhoneNumber = updateUserDto.PhoneNumber.ToString();
                     user.Email = updateUserDto.Email;
 
                     await _userStore.UpdateAsync(user);

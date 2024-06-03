@@ -205,8 +205,15 @@ namespace BL.Managers
             try
             {
                 var commands = await _unitOfWork.RepoCommand.Query(n => n.UserId == userId);
-
-                return _mapper.Map<IEnumerable<CommandDto>>(commands);
+                var commandDtos = _mapper.Map<IEnumerable<CommandDto>>(commands);
+                foreach (var commandDto in commandDtos)
+                {
+                    var user = await _userStore.FindByIdAsync(commandDto.UserId);
+                    commandDto.User = _mapper.Map<RegisterUserDto>(user);
+                    var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
+                    commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
+                }
+                return commandDtos;
             }
             catch (Exception ex)
             {
