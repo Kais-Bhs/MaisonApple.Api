@@ -3,12 +3,16 @@
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
+using System.Reflection.Metadata;
 using AutoMapper;
 using BL.Interfaces;
 using DAL;
 using DTO;
 using Entities;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Identity;
+using Document = iTextSharp.text.Document;
 
 namespace BL.Managers
 {
@@ -35,6 +39,7 @@ namespace BL.Managers
                 await _unitOfWork.RepoCommand.Add(command);
                 await _unitOfWork.CommitTransactionAsync();
                 await _unitOfWork.SaveAsync();
+
 
          
                 await SendCommandSendedMail(commandDto);
@@ -91,8 +96,14 @@ namespace BL.Managers
             try
             {
                 var Payment = await _unitOfWork.RepoCommand.Get(id);
-                var PaymentDto = _mapper.Map<CommandDto>(Payment);
-                return PaymentDto;
+                var commandDto = _mapper.Map<CommandDto>(Payment);
+
+                var user = await _userStore.FindByIdAsync(commandDto.UserId);
+                commandDto.User = _mapper.Map<RegisterUserDto>(user);
+                var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
+                commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
+
+                return commandDto;
             }
             catch (Exception ex)
             {
@@ -224,6 +235,7 @@ namespace BL.Managers
         {
             string subject = $"Votre Commande de reference {commandDto.Reference} a ete bien accepté";
 
+
             var produits = string.Empty;
             foreach (var order in commandDto.Orders)
             {
@@ -286,14 +298,14 @@ namespace BL.Managers
 </body>
 </html>";
 
-
-
-            var user = await _userStore.FindByIdAsync(commandDto.UserId);
-            await _mailService.SendEmail(user.Email, subject, body, null, null);
+            var command = await Get(commandDto.Id);
+            var attachement = await GenerateInvoicePdf(command);
+            await _mailService.SendEmail(command.User.Email, subject, body, attachement, $"Facture {command.Reference}");
         }
         private async Task SendCommandSendedMail(AddCommandDto commandDto)
         {
             string subject = $"Votre Commande de reference {commandDto.Reference} est sous traitement";
+
 
             var produits = string.Empty;
             foreach (var order in commandDto.Orders)
@@ -362,5 +374,121 @@ namespace BL.Managers
 
             await _mailService.SendEmail(user.Email, subject, body, null, null);
         }
+        public async Task<byte[]> GenerateInvoicePdf(CommandDto command)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4, 50, 50, 25, 25);
+                PdfWriter writer = PdfWriter.GetInstance(document, stream);
+                document.Open();
+
+                // Fonts
+                Font titleFont = FontFactory.GetFont("Arial", 18, Font.BOLD);
+                Font subTitleFont = FontFactory.GetFont("Arial", 14, Font.BOLD);
+                Font regularFont = FontFactory.GetFont("Arial", 12);
+                Font smallBoldFont = FontFactory.GetFont("Arial", 10, Font.BOLD);
+
+                // Logo
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance("../MaisonApple/img/logo.jpg");
+                logo.ScaleToFit(100f, 100f);
+                logo.Alignment = Element.ALIGN_RIGHT;
+                document.Add(logo);
+
+                // Title
+                Paragraph title = new Paragraph("FACTURE", titleFont);
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                // Spacer
+                document.Add(new Paragraph(" "));
+
+                // Client and company details
+                PdfPTable detailsTable = new PdfPTable(2);
+                detailsTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                detailsTable.SpacingBefore = 10;
+                detailsTable.SpacingAfter = 10;
+                detailsTable.WidthPercentage = 100;
+                detailsTable.SetWidths(new int[] { 1, 1 });
+
+                PdfPCell clientCell = new PdfPCell(new Phrase("FACTURÉ À\n" + command.User.UserName + "\n" + command.User.Email, regularFont));
+                clientCell.Border = Rectangle.NO_BORDER;
+                detailsTable.AddCell(clientCell);
+
+                PdfPCell companyCell = new PdfPCell(new Phrase("ENVOYÉ À\n" + command.Address, regularFont));
+                companyCell.Border = Rectangle.NO_BORDER;
+                detailsTable.AddCell(companyCell);
+
+                document.Add(detailsTable);
+
+                // Invoice details
+                PdfPTable invoiceTable = new PdfPTable(2);
+                invoiceTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                invoiceTable.SpacingBefore = 10;
+                invoiceTable.SpacingAfter = 10;
+                invoiceTable.WidthPercentage = 100;
+                invoiceTable.SetWidths(new int[] { 1, 1 });
+
+                PdfPCell invoiceDetailsCell = new PdfPCell(new Phrase("FACTURE N°: " + command.Reference + "\nDATE: " + command.Date.ToString("dd/MM/yyyy") , regularFont));
+                invoiceDetailsCell.Border = Rectangle.NO_BORDER;
+                invoiceTable.AddCell(invoiceDetailsCell);
+
+                PdfPCell emptyCell = new PdfPCell(new Phrase("", regularFont));
+                emptyCell.Border = Rectangle.NO_BORDER;
+                invoiceTable.AddCell(emptyCell);
+
+                document.Add(invoiceTable);
+
+                // Table headers
+                PdfPTable table = new PdfPTable(4);
+                table.HorizontalAlignment = Element.ALIGN_LEFT;
+                table.SpacingBefore = 20;
+                table.SpacingAfter = 20;
+                table.WidthPercentage = 100;
+                table.SetWidths(new int[] { 1, 4, 2, 2 });
+
+                table.AddCell(new PdfPCell(new Phrase("QTE", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("DÉSIGNATION", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("PRIX UNIT. HT", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("MONTANT HT", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                // Table content
+                foreach (var order in command.Orders)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(order.Quantity.ToString(), regularFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(order.Product.Name, regularFont)) { HorizontalAlignment = Element.ALIGN_LEFT });
+                    table.AddCell(new PdfPCell(new Phrase(order.Product.CurrentPrice.ToString("F2"), regularFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                    table.AddCell(new PdfPCell(new Phrase((order.Quantity * order.Product.CurrentPrice).ToString("F2"), regularFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                }
+
+                // Total amount
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("Total HT", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                table.AddCell(new PdfPCell(new Phrase(command.Amount.ToString("F2"), regularFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+
+                // VAT
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("TVA 20.0%", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                table.AddCell(new PdfPCell(new Phrase((command.Amount * 0.20).ToString("F2"), regularFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+
+                // Total TTC
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("", regularFont)) { Border = Rectangle.NO_BORDER });
+                table.AddCell(new PdfPCell(new Phrase("TOTAL", smallBoldFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+                table.AddCell(new PdfPCell(new Phrase((command.Amount * 1.20).ToString("F2"), regularFont)) { HorizontalAlignment = Element.ALIGN_RIGHT });
+
+                document.Add(table);
+
+                // Footer
+                Paragraph footer = new Paragraph("Merci pour votre achat!", subTitleFont);
+                footer.Alignment = Element.ALIGN_CENTER;
+                document.Add(footer);
+
+                document.Close();
+                return stream.ToArray();
+            }
+        }
     }
+
 }

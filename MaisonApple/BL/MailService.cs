@@ -69,7 +69,6 @@ namespace BL
                     var attachment = new Attachment(new MemoryStream(PieceJointe), $"{namePieceJointe}" + ".pdf");
                     message.Attachments.Add(attachment);
                 }
-                var test = JsonConvert.SerializeObject(message);
                smtpClient.Send(message);
             }
 
