@@ -211,6 +211,17 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+        public async Task SendContactRequest(ContactDto contactDto)
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
         public async Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId)
         {
             try

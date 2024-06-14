@@ -127,5 +127,18 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpPost("SendContactRequest")]
+        public async Task<IActionResult> SendContactRequest(ContactDto contactDto)
+        {
+            try
+            {
+                await _manager.SendContactRequest(contactDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

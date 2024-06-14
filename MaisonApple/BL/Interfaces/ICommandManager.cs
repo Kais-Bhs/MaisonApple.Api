@@ -22,5 +22,6 @@ namespace BL.Interfaces
 
         Task RejectCommmand(int commandId);
         Task<IEnumerable<CommandDto>> GetCommandsByUser(string userId);
+        Task SendContactRequest(ContactDto contactDto);
     }
 }
