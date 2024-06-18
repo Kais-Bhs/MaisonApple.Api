@@ -7,5 +7,6 @@ namespace Entities
     {
         public List<Command> payments { get; set; }
         public List<Notification> Notifications { get; set; }
+        public ICollection<Favoris>? Favoris { get; set;}
     }
 }

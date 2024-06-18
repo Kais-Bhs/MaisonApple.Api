@@ -10,6 +10,8 @@ namespace DTO
     {
         FeedBack,
         Reparation,
-        Demande_Produit
+        Demande_Produit,
+        Reclamation,
+        Partenariat
     }
 }

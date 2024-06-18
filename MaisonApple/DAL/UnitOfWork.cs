@@ -26,6 +26,7 @@ namespace DAL
         public IRepository<Notification> RepoNotification { get; set; }
         public IRepository<ProductColorRelation> RepoProductColorRelation { get; set; }
         public IRepository<ProductColor> RepoProductColor { get; set; }
+        public IFavoriteRepository RepoFavoris { get; set; }
         public UnitOfWork(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -42,6 +43,7 @@ namespace DAL
             RepoNotification = new Repository<Notification>(new DAOEntities<Notification>(dbContext));
             RepoProductColorRelation = new Repository<ProductColorRelation>(new DAOEntities<ProductColorRelation>(dbContext));
             RepoProductColor = new Repository<ProductColor>(new DAOEntities<ProductColor>(dbContext));
+            RepoFavoris = new FavoriteRepository(new DAOEntities<Favoris>(dbContext));
         }
 
         /// <summary>

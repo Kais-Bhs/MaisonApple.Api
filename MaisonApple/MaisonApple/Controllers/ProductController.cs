@@ -14,9 +14,11 @@ namespace MaisonApple.Controllers
     public partial class ProductController : ControllerBase
     {
         private readonly IProductManager _manager;
-        public ProductController(IProductManager manager)
+        private readonly IFavorisManager _favoris;
+        public ProductController(IProductManager manager, IFavorisManager favoris)
         {
             _manager = manager;
+            _favoris = favoris;
         }
 
         [HttpGet("Get")]
@@ -108,6 +110,32 @@ namespace MaisonApple.Controllers
             try
             {
                 var result = await _manager.GetALlColors();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpPost("AddToFavorite")]
+        public async Task<IActionResult> AddToFavorite(string userId , int productId)
+        {
+            try
+            {
+                await _favoris.AddToFavorite(userId,productId);
+                return CreatedAtAction(null, null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpGet("GetFavoriteByUser")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetFavoriteByUser(string userId)
+        {
+            try
+            {
+                var result = await _favoris.GetFavoriteByUser(userId);
                 return Ok(result);
             }
             catch (Exception ex)

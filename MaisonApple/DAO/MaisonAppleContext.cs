@@ -27,7 +27,7 @@ namespace DAO
         public DbSet<Command> Commands { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-
+        public DbSet<Favoris> Favoris { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,6 +43,7 @@ namespace DAO
             new CommandEntityTypeConfiguration().Configure(modelBuilder.Entity<Command>());
             new OrderEntityTypeConfiguration().Configure(modelBuilder.Entity<Order>());
             new NotificationEntityTypeConfguration().Configure(modelBuilder.Entity<Notification>());
+            new FavorisEntityTypeConfiguration().Configure(modelBuilder.Entity<Favoris>());
 
             modelBuilder.Entity<Category>().HasData(
           new Category { Id = 1, Name = "IPHONE" },

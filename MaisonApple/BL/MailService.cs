@@ -42,7 +42,7 @@ namespace BL
         //    }
         //}
 
-        public async Task SendEmail(string destinataire, string sujet, string corps, byte[] PieceJointe, string namePieceJointe)
+        public async Task SendEmail(string destinataire, string sujet, string corps, byte[] PieceJointe, string namePieceJointe,bool isImage = false)
         {
             try
             {
@@ -62,12 +62,28 @@ namespace BL
                     Body = corps,
                     IsBodyHtml = true
                 };
+                var dest = string.Empty;
+                if(String.IsNullOrEmpty(destinataire) )
+                {
+                    dest = _smtpUsername;
+                }else
+                {
+                    dest = destinataire;
+                }
 
-                message.To.Add(new MailAddress(destinataire));
+                message.To.Add(new MailAddress(dest));
                 if (PieceJointe != null && PieceJointe.Length > 0)
                 {
-                    var attachment = new Attachment(new MemoryStream(PieceJointe), $"{namePieceJointe}" + ".pdf");
-                    message.Attachments.Add(attachment);
+                    if(isImage)
+                    {
+                        var attachment = new Attachment(new MemoryStream(PieceJointe), $"{namePieceJointe}" + ".png");
+                        message.Attachments.Add(attachment);
+                    }else
+                    {
+                        var attachment = new Attachment(new MemoryStream(PieceJointe), $"{namePieceJointe}" + ".pdf");
+                        message.Attachments.Add(attachment);
+                    }
+
                 }
                smtpClient.Send(message);
             }

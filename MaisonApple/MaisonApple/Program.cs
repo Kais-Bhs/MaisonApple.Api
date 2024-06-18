@@ -42,6 +42,7 @@ builder.Services.AddTransient<IProductImageManager, ProductImageManager>();
 builder.Services.AddTransient<IAuthentificationManager, AuthentificationManager>();
 builder.Services.AddTransient<ICommandManager, CommandManager>();
 builder.Services.AddTransient<INotificationManager, NotificationManager>();
+builder.Services.AddTransient<IFavorisManager, FavorisManager>();
 
 builder.Services.AddTransient<IMailService, MailService>(provider =>
 {

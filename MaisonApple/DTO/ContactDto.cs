@@ -8,7 +8,6 @@ namespace DTO
 {
     public class ContactDto
     {
-        public string Subject { get; set; }
         public string Body { get; set; }
         public List<byte[]> pictures { get; set; }
         public string UserTel { get; set; }

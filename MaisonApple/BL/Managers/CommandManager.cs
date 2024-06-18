@@ -215,7 +215,78 @@ namespace BL.Managers
         {
             try
             {
-                
+                string subject = $"[ {contactDto.ContactType} ]";
+
+                string body = $@"
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }}
+        .container {{
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }}
+        .header {{
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }}
+        .details {{
+            margin: 20px 0;
+        }}
+        .footer {{
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <p>Bonjour,</p>
+        <p>Vous avez un nouveau message dans la filiere de {contactDto.ContactType} </p>
+        <div class='details'>
+            <p><strong>Détails du message :</strong></p>
+            <p>User email :  {contactDto.UserEmail}</p>
+            <p>User telephone : {contactDto.UserTel}</p>
+                <p>User message  : {contactDto.Body}</p>
+        </div>
+        <p>Merci pour votre confiance.</p>
+        <p class='footer'>Équipe Maison d'Apple,<br>Cordialement</p>
+    </div>
+</body>
+</html>";
+
+                var users = await _userStore.GetUsersInRoleAsync("ADMIN");
+
+                foreach (var user in users)
+                {
+                    if(user.EmailConfirmed)
+                    {
+                        var attchName = string.Empty;
+                        var attch = new byte[32];
+                        if (contactDto.pictures[0] != null)
+                        {
+                            attch = contactDto.pictures[0];
+                            attchName = "Image du message";
+                        }
+                        await _mailService.SendEmail(user.Email, subject, body, attch, attchName,true);
+                    }
+                }
+
             }
             catch (Exception ex)
             {
