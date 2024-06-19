@@ -16,5 +16,6 @@ namespace BL.Interfaces
     {
         Task AddToFavorite(string userId, int productId);
         Task<List<ProductDto>> GetFavoriteByUser(string userId);
+        Task Delete(string userId, int productId);
     }
 }

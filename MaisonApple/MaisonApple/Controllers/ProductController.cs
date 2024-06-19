@@ -143,5 +143,18 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpDelete("DeleteFavorite")]
+        public async Task<IActionResult> DeleteFavorite(string userId, int productId)
+        {
+            try
+            {
+                await _favoris.Delete(userId,productId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

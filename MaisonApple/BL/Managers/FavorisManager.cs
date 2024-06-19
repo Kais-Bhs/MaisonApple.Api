@@ -60,5 +60,25 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+        public async Task Delete(string userId , int productId)
+        {
+            try
+            {
+                var favorite = (await _unitOfWork.RepoFavoris.Query(f => f.UserId == userId && f.ProductId == productId)).FirstOrDefault();
+                if (favorite != null)
+                {
+                    await _unitOfWork.BeginTransactionAsync();
+                    await _unitOfWork.RepoFavoris.Delete(favorite);
+                    await _unitOfWork.CommitTransactionAsync();
+                    await _unitOfWork.SaveAsync();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }
