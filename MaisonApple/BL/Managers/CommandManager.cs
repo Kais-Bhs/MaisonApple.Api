@@ -133,53 +133,47 @@ namespace BL.Managers
         {
             try
             {
-                var testStock = true;
                 foreach (var orderDto in commandDto.Orders)
                 {
 
                     var product = await _unitOfWork.RepoProduct.Get(orderDto.ProductId);
                     product.StockQuantity -= orderDto.Quantity;
+                    if (product.StockQuantity < 3)
+                    {
+                        var adminNotification = new Notification { Date = DateTime.Now, Title = $"Inventaire", Description = $"Stock du produit {product.Name} est en basse" };
+
+                        var users = await _userStore.GetUsersInRoleAsync("ADMIN");
+
+                        foreach (var user in users)
+                        {
+                            adminNotification.UserId = user.Id;
+                            await _unitOfWork.BeginTransactionAsync();
+                            await _unitOfWork.RepoNotification.Add(adminNotification);
+                            await _unitOfWork.CommitTransactionAsync();
+                            await _unitOfWork.SaveAsync();
+                        }
+
+                    }
                     if (product.StockQuantity >= 0)
                     {
+                        product.StockQuantity = 0;
+                    }
                         await _unitOfWork.BeginTransactionAsync();
                         await _unitOfWork.RepoProduct.Update(product);
                         await _unitOfWork.CommitTransactionAsync();
-                        await _unitOfWork.SaveAsync();
-
-                        if (product.StockQuantity < 3)
-                        {
-                            var adminNotification = new Notification { Date = DateTime.Now, Title = $"Inventaire", Description = $"Stock du produit {product.Name} est en basse" };
-
-                            var users = await _userStore.GetUsersInRoleAsync("ADMIN");
-
-                            foreach (var user in users)
-                            {
-                                adminNotification.UserId = user.Id;
-                                await _unitOfWork.BeginTransactionAsync();
-                                await _unitOfWork.RepoNotification.Add(adminNotification);
-                                await _unitOfWork.CommitTransactionAsync();
-                                await _unitOfWork.SaveAsync();
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        testStock = false;
-                    }
+                        await _unitOfWork.SaveAsync();                 
 
                 }
-                if (testStock)
-                {
+            
                     commandDto.CommandStatus = CommandStatusDto.Accepted;
 
-                    var user = await _userStore.FindByIdAsync(commandDto.UserId);
-                    if(user != null)
+                    var User = await _userStore.FindByIdAsync(commandDto.UserId);
+                    if(User != null)
                     {
                         int pointToAdd = (int)(commandDto.Amount / 500);
-                        user.points = user.points + pointToAdd;
+                        User.points = User.points + pointToAdd;
 
-                        await _userStore.UpdateAsync(user);
+                        await _userStore.UpdateAsync(User);
 
                         var notification1 = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Points Merci Gagnées", Description = $"Vous avez gagnez {pointToAdd} comme points merci suite à votre commande" };
                         await _unitOfWork.BeginTransactionAsync();
@@ -198,7 +192,7 @@ namespace BL.Managers
                     await _unitOfWork.SaveAsync();
 
                     await SendAcceptCommandMail(commandDto);
-                }
+                
 
             }
             catch (Exception ex)
