@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240602162143_InitialMigration")]
+    [Migration("20240625235607_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -94,6 +94,28 @@ namespace DAO.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Commands");
+                });
+
+            modelBuilder.Entity("Entities.Favoris", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favoris");
                 });
 
             modelBuilder.Entity("Entities.Notification", b =>
@@ -2315,6 +2337,9 @@ namespace DAO.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int>("points")
+                        .HasColumnType("int");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 
@@ -2325,6 +2350,25 @@ namespace DAO.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.Favoris", b =>
+                {
+                    b.HasOne("Entities.Product", "Product")
+                        .WithMany("Favoris")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("Favoris")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });
@@ -2463,6 +2507,8 @@ namespace DAO.Migrations
 
             modelBuilder.Entity("Entities.Product", b =>
                 {
+                    b.Navigation("Favoris");
+
                     b.Navigation("Images");
 
                     b.Navigation("Orders");
@@ -2477,6 +2523,8 @@ namespace DAO.Migrations
 
             modelBuilder.Entity("Entities.User", b =>
                 {
+                    b.Navigation("Favoris");
+
                     b.Navigation("Notifications");
 
                     b.Navigation("payments");

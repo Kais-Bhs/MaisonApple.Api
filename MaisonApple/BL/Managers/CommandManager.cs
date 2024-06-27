@@ -172,6 +172,23 @@ namespace BL.Managers
                 if (testStock)
                 {
                     commandDto.CommandStatus = CommandStatusDto.Accepted;
+
+                    var user = await _userStore.FindByIdAsync(commandDto.UserId);
+                    if(user != null)
+                    {
+                        int pointToAdd = (int)(commandDto.Amount / 500);
+                        user.points = user.points + pointToAdd;
+
+                        await _userStore.UpdateAsync(user);
+
+                        var notification1 = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Points Merci Gagnées", Description = $"Vous avez gagnez {pointToAdd} comme points merci suite à votre commande" };
+                        await _unitOfWork.BeginTransactionAsync();
+                        await _unitOfWork.RepoNotification.Add(notification1);
+                        await _unitOfWork.CommitTransactionAsync();
+                        await _unitOfWork.SaveAsync();
+                    }
+                   
+
                     var command = _mapper.Map<Command>(commandDto);
                     var notification = new Notification { Date = DateTime.Now, UserId = commandDto.UserId, Title = $"Commande Acceptée", Description = $"Votre Commande de reference {commandDto.Reference} est bien acceptée" };
                     await _unitOfWork.BeginTransactionAsync();
@@ -278,7 +295,7 @@ namespace BL.Managers
                     {
                         var attchName = string.Empty;
                         var attch = new byte[32];
-                        if (contactDto.pictures[0] != null)
+                        if (contactDto.pictures[0] != null && contactDto.pictures.Any())
                         {
                             attch = contactDto.pictures[0];
                             attchName = "Image du message";

@@ -2334,6 +2334,9 @@ namespace DAO.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int>("points")
+                        .HasColumnType("int");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 
