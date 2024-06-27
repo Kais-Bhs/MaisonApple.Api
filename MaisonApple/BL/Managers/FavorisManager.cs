@@ -53,7 +53,15 @@ namespace BL.Managers
             try
             {
                 var products = await _unitOfWork.RepoFavoris.GetFavoriteByUser(userId);
-                return _mapper.Map<List<ProductDto>>(products);
+                var productDtos =  _mapper.Map<List<ProductDto>>(products);
+                foreach (var product in productDtos)
+                {
+                    var images = (await _unitOfWork.RepoProductImage.GetProductImagesByProductId(product.Id)).ToList();
+                    product.Images = _mapper.Map<List<ProductImageDto>>(images);
+                }
+
+                return productDtos;
+
             }
             catch (Exception ex)
             {

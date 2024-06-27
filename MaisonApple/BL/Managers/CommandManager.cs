@@ -295,7 +295,7 @@ namespace BL.Managers
                     {
                         var attchName = string.Empty;
                         var attch = new byte[32];
-                        if (contactDto.pictures[0] != null && contactDto.pictures.Any())
+                        if (contactDto.pictures != null && contactDto.pictures.Any())
                         {
                             attch = contactDto.pictures[0];
                             attchName = "Image du message";
