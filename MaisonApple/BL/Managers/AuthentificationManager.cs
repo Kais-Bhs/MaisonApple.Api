@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using BL.Interfaces;
+using DAL;
 using DTO;
 using Entities;
 using Microsoft.AspNetCore.Identity;
@@ -21,12 +22,14 @@ namespace BL.Managers
         public readonly JWTConfiguration _JWTConfiguration;
         private readonly IMapper _mapper;
         private readonly IMailService _mailService;
-        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration, IMapper mapper, IMailService mailService)
+        private readonly IUnitOfWork _unitOfWork;
+        public AuthentificationManager(UserManager<User> userStore, JWTConfiguration JWTConfiguration, IMapper mapper, IMailService mailService, IUnitOfWork unitOfWork)
         {
             _userStore = userStore;
             _JWTConfiguration = JWTConfiguration;
             _mapper = mapper;
             _mailService = mailService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<RegisterUserDto> Get(string userId)
         {
@@ -166,6 +169,66 @@ namespace BL.Managers
                 {
                     throw new Exception("Incorrect UserName");
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task ResetMail(string email,string pswd)
+        {
+            try
+            {
+                var user = await _userStore.FindByEmailAsync(email);
+
+                if(user != null)
+                {
+                    var passwordValidator = new PasswordValidator<User>();
+                    var result = await passwordValidator.ValidateAsync(_userStore, user, pswd);
+
+                    var hashedPassword = _userStore.PasswordHasher.HashPassword(user, pswd);
+
+                    user.PasswordHash = hashedPassword;
+
+                    await _userStore.UpdateAsync(user);
+                }else { throw new Exception(); }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task<IEnumerable<UserDto>> GetAllUser()
+        {
+            try
+            {      
+                var users = _userStore.Users.ToList();
+                var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+                foreach (var user in userDtos)
+                {
+                    var commands = await _unitOfWork.RepoCommand.Query(n => n.UserId == user.Id);
+                    var commandDtos = _mapper.Map<IEnumerable<CommandDto>>(commands);
+                    foreach (var commandDto in commandDtos)
+                    {
+                        var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
+                        commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
+                    }
+                    user.Commands = commandDtos.ToList();
+                }
+
+                return userDtos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        public async Task DeleteUser(string userId)
+        {
+            try
+            {
+                var user = await _userStore.FindByIdAsync(userId);
+                await _userStore.DeleteAsync(user);
             }
             catch (Exception ex)
             {

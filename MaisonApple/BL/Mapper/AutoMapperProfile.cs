@@ -28,6 +28,9 @@ namespace BL.Mapper
             CreateMap<RegisterUserDto, User>();
             CreateMap<User, RegisterUserDto>();
 
+            CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
+
             CreateMap<CommandDto, Command>().ForMember(dest => dest.Orders, opt => opt.Ignore());
             CreateMap<Command, CommandDto>().ForMember(dest => dest.Orders, opt => opt.Ignore());
 

@@ -98,5 +98,44 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpPut("ResetMail")]
+        public async Task<IActionResult> ResetMail(string email, string pswd)
+        {
+            try
+            {
+                await _manager.ResetMail(email,pswd);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpGet("GetAllUser")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUser()
+        {
+            try
+            {
+                var result = await _manager.GetAllUser();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(string userId)
+        {
+            try
+            {
+                await _manager.DeleteUser(userId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

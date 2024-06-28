@@ -14,5 +14,8 @@ namespace BL.Interfaces
         Task VerifyEmail(string userId);
         Task<RegisterUserDto> Get(string userId);
         Task Update(UpdateUserDto updateUserDto);
+        Task ResetMail(string email, string pswd);
+        Task<IEnumerable<UserDto>> GetAllUser();
+        Task DeleteUser(string userId);
     }
 }
