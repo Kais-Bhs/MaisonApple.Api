@@ -13,6 +13,7 @@ namespace DTO
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
         public int points { get; set; }
+        public bool EmailConfirmed { get; set; }
         public List<CommandDto> Commands { get; set; }
     }
 }
