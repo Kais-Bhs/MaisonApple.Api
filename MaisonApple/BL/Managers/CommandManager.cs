@@ -154,7 +154,7 @@ namespace BL.Managers
                         }
 
                     }
-                    if (product.StockQuantity >= 0)
+                    if (product.StockQuantity <= 0)
                     {
                         product.StockQuantity = 0;
                     }
