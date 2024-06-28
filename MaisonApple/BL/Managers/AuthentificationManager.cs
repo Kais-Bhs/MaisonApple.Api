@@ -317,6 +317,7 @@ namespace BL.Managers
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }}
         .button {{
             display: inline-block;
@@ -326,11 +327,19 @@ namespace BL.Managers
             background-color: #007BFF;
             text-decoration: none;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }}
+        .button:hover {{
+            background-color: #0056b3;
         }}
         .footer {{
             margin-top: 20px;
             font-size: 0.9em;
             color: #777;
+        }}
+        .highlight {{
+            color: #007BFF;
+            font-weight: bold;
         }}
     </style>
 </head>
@@ -346,13 +355,14 @@ namespace BL.Managers
             <li>Bénéficier de nos offres promotionnelles exclusives</li>
             <li>Accéder à notre service après-vente en ligne</li>
         </ul>
-        <p>Si vous ne parvenez pas à cliquer sur le bouton, copiez et collez le lien suivant dans votre navigateur : <a href='{verificationLink}'>{verificationLink}</a></p>
+        <p>Si vous ne parvenez pas à cliquer sur le bouton, copiez et collez le lien suivant dans votre navigateur : <a href='{verificationLink}' class='highlight'>{verificationLink}</a></p>
         <p>Si vous n'avez pas créé de compte sur MaisonApple, veuillez ignorer ce message.</p>
         <p>Merci de votre confiance et à bientôt sur MaisonApple.</p>
         <p class='footer'>L'équipe MaisonApple</p>
     </div>
 </body>
 </html>";
+
 
 
             await _mailService.SendEmail(email, subject, body, null, null);

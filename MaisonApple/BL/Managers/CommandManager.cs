@@ -357,29 +357,42 @@ namespace BL.Managers
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }}
         .header {{
             font-size: 1.2em;
             margin-bottom: 20px;
+            color: #28a745;
         }}
         .details {{
             margin: 20px 0;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
         }}
         .footer {{
             margin-top: 20px;
             font-size: 0.9em;
             color: #777;
         }}
+        .highlight {{
+            color: #28a745;
+            font-weight: bold;
+        }}
+        .important {{
+            color: #dc3545;
+            font-weight: bold;
+        }}
     </style>
 </head>
 <body>
     <div class='container'>
-        <p>Bonjour,</p>
-        <p>Nous sommes ravis de vous annoncer que votre commande de référence <strong>{commandDto.Reference}</strong> a été bien acceptée.</p>
+        <p class='header'>Bonjour,</p>
+        <p>Nous sommes ravis de vous annoncer que votre commande de référence <span class='highlight'>{commandDto.Reference}</span> a été bien acceptée.</p>
         <div class='details'>
             <p><strong>Détails de la commande :</strong></p>
-            <p>Date : {commandDto.Date}</p>
-            <p>Montant : {commandDto.Amount}</p>
+            <p>Date : <span class='important'>{commandDto.Date}</span></p>
+            <p>Montant : <span class='important'>{commandDto.Amount}</span></p>
             <p>Liste des produits commandés :</p>
             <ul>
                 {produits}
@@ -390,6 +403,7 @@ namespace BL.Managers
     </div>
 </body>
 </html>";
+
 
             var command = await Get(commandDto.Id);
             var attachement = await GenerateInvoicePdf(command);
@@ -446,7 +460,7 @@ namespace BL.Managers
 <body>
     <div class='container'>
         <p>Bonjour,</p>
-        <p>Votre commande de référence <strong>{commandDto.Reference}</strong> est en cours de traitement. Nous vous informerons de son état très bientôt.</p>
+        <p>Nous sommes ravis de vous annoncer que votre commande de référence <strong>{commandDto.Reference}</strong> a été bien acceptée.</p>
         <div class='details'>
             <p><strong>Détails de la commande :</strong></p>
             <p>Date : {commandDto.Date}</p>
