@@ -196,6 +196,7 @@ namespace BL.Managers
                     user.PasswordHash = hashedPassword;
 
                     await _userStore.UpdateAsync(user);
+                    await SenResetPswEmail(user);
                 }else { throw new Exception(); }
             }
             catch (Exception ex)
@@ -203,6 +204,56 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        private async Task SenResetPswEmail(User user)
+        {
+            string subject = "Confirmation de Changement de Mot de Passe - Maison Apple";
+
+            string body = $@"<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+        }}
+        .container {{
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }}
+        .header, .footer {{
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: center;
+        }}
+        .warning {{
+            color: #8B0000;
+            font-weight: bold;
+        }}
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <div class=""header"">
+            <h2>Bonjour {{user.Username}},</h2>
+        </div>
+        <p>Votre mot de passe a été changé avec succès. Si vous n'avez pas demandé ce changement, veuillez nous contacter immédiatement.</p>
+        <p class=""warning"">Attention : Ne partagez jamais votre mot de passe avec des tiers.</p>
+        <div class=""footer"">
+            <p>Cordialement,<br>
+            L'équipe Maison Apple</p>
+        </div>
+    </div>
+</body>
+</html>
+";
+
+
+            await _mailService.SendEmail(user.Email, subject, body, null, null);
+        }
+
         public async Task<IEnumerable<UserDto>> GetAllUser()
         {
             try
