@@ -79,7 +79,13 @@ namespace BL.Managers
                     var user = await _userStore.FindByIdAsync(commandDto.UserId);
                     commandDto.User = _mapper.Map<RegisterUserDto>(user);
                     var orders = await _unitOfWork.RepoOrder.GetOrdersByCommanId(commandDto.Id);
+
                     commandDto.Orders = _mapper.Map<List<OrderDto>>(orders);
+                    foreach(var order in commandDto.Orders)
+                    {
+                        var images = await _unitOfWork.RepoProductImage.GetProductImagesByProductId(order.ProductId);
+                        order.Product.Images = _mapper.Map<List<ProductImageDto>>(images);
+                    }
                 }
 
 
