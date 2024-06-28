@@ -76,16 +76,21 @@ namespace BL.Managers
             try
             {
                 var user = _mapper.Map<User>(userDto);
-
-                IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
-                if (result.Succeeded)
+                var users = await _userStore.FindByEmailAsync(userDto.Email);
+                if(users == null)
                 {
-                    string verificationLink = $"https://localhost:7028/api/Authentification/VerifyEmail?userId={user.Id}";
+                    IdentityResult result = await _userStore.CreateAsync(user, userDto.Password);
+                    if (result.Succeeded)
+                    {
+                        string verificationLink = $"https://localhost:7028/api/Authentification/VerifyEmail?userId={user.Id}";
 
-                    await SendVerificationEmail(user.Email, verificationLink);
+                        await SendVerificationEmail(user.Email, verificationLink);
 
-                    IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
+                        IdentityResult resultRole = await _userStore.AddToRoleAsync(user, userDto.Role);
+                    }
                 }
+                else { throw new Exception(); }
+
 
                 return user.Id;
             }
