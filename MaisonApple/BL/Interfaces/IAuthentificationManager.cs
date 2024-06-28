@@ -17,5 +17,6 @@ namespace BL.Interfaces
         Task ResetMail(string email, string pswd);
         Task<IEnumerable<UserDto>> GetAllUser();
         Task DeleteUser(string userId);
+        Task BlockUser(string userId, bool toBlock);
     }
 }

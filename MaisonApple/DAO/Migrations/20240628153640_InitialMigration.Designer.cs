@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAO.Migrations
 {
     [DbContext(typeof(MaisonAppleContext))]
-    [Migration("20240625235607_InitialMigration")]
+    [Migration("20240628153640_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -2336,6 +2336,9 @@ namespace DAO.Migrations
             modelBuilder.Entity("Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("points")
                         .HasColumnType("int");

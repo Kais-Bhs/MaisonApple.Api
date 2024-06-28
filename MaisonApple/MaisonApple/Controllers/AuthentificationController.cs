@@ -137,5 +137,18 @@ namespace MaisonApple.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+        [HttpPut("BlockUser")]
+        public async Task<IActionResult> BlockUser(string email, bool isBlocked)
+        {
+            try
+            {
+                await _manager.BlockUser(email, isBlocked);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

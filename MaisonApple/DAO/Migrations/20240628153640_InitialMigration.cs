@@ -39,6 +39,7 @@ namespace DAO.Migrations
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     Discriminator = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
                     points = table.Column<int>(type: "int", nullable: true),
+                    IsBlocked = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),

@@ -2334,6 +2334,9 @@ namespace DAO.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("points")
                         .HasColumnType("int");
 

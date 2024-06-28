@@ -118,7 +118,23 @@ namespace BL.Managers
                 throw new Exception(ex.Message, ex);
             }
         }
+        public async Task BlockUser(string userId,bool toBlock)
+        {
+            try
+            {
+                var user = await _userStore.FindByIdAsync(userId);
+                if(userId != null && toBlock != user.IsBlocked)
+                {
+                    user.IsBlocked = toBlock;
 
+                    await _userStore.UpdateAsync(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
         public async Task<string> Login(LoginUserDto userDto)
         {
             try
@@ -133,33 +149,42 @@ namespace BL.Managers
                     {
                         if(userFromDB.EmailConfirmed)
                         {
-                            List<Claim> myclaim = new List<Claim>();
-                            myclaim.Add(new Claim(ClaimTypes.Name, userFromDB.UserName));
-                            myclaim.Add(new Claim(ClaimTypes.NameIdentifier, userFromDB.Id));
-                            myclaim.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); //jti ==> Token id
-
-                            var roles = await _userStore.GetRolesAsync(userFromDB);
-                            foreach (var role in roles)
+                            if(!userFromDB.IsBlocked)
                             {
-                                myclaim.Add(new Claim(ClaimTypes.Role, role));
+                                List<Claim> myclaim = new List<Claim>();
+                                myclaim.Add(new Claim(ClaimTypes.Name, userFromDB.UserName));
+                                myclaim.Add(new Claim(ClaimTypes.NameIdentifier, userFromDB.Id));
+                                myclaim.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); //jti ==> Token id
+
+                                var roles = await _userStore.GetRolesAsync(userFromDB);
+                                foreach (var role in roles)
+                                {
+                                    myclaim.Add(new Claim(ClaimTypes.Role, role));
+                                }
+
+                                var signKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTConfiguration.SecritKey)); //"ssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+                                var signingCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
+
+                                var tokenDescriptor = new SecurityTokenDescriptor
+                                {
+                                    Subject = new ClaimsIdentity(myclaim),
+                                    Expires = DateTime.Now.AddHours(1),
+                                    SigningCredentials = signingCredentials,
+                                    Issuer = _JWTConfiguration.ValidIss,
+                                    Audience = _JWTConfiguration.ValidAud
+                                };
+
+                                var tokenHandler = new JwtSecurityTokenHandler();
+                                var token = tokenHandler.CreateToken(tokenDescriptor);
+                                return tokenHandler.WriteToken(token);
+                            }
+                            else
+                            {
+                                throw new Exception("Compte est bloqué");
                             }
 
-                            var signKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTConfiguration.SecritKey)); //"ssssssssssssssssssssssssssssssssssssssssssssssssssssss"
-                            var signingCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
-
-                            var tokenDescriptor = new SecurityTokenDescriptor
-                            {
-                                Subject = new ClaimsIdentity(myclaim),
-                                Expires = DateTime.Now.AddHours(1),
-                                SigningCredentials = signingCredentials,
-                                Issuer = _JWTConfiguration.ValidIss,
-                                Audience = _JWTConfiguration.ValidAud
-                            };
-
-                            var tokenHandler = new JwtSecurityTokenHandler();
-                            var token = tokenHandler.CreateToken(tokenDescriptor);
-                            return tokenHandler.WriteToken(token);
-                        }else
+                        }
+                        else
                         {
                             throw new Exception("Compte n'est pas verifié");
                         }

@@ -14,6 +14,7 @@ namespace DTO
         public int PhoneNumber { get; set; }
         public int points { get; set; }
         public bool EmailConfirmed { get; set; }
+        public bool IsBlocked { get; set; }
         public List<CommandDto> Commands { get; set; }
     }
 }
